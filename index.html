@@ -9,15 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Variáveis Globais (Amarelo mais vibrante e brilhante!) --- */
+        /* --- Variáveis Globais --- */
         :root {
             --bg-base: #030303;
             --bg-surface: #0a0a0a;
             --bg-elevated: #111111;
             --text-main: #f5f5f5;
             --text-sec: #999999;
-            --neon-gold: #FFE600; /* Amarelo/Dourado super vibrante */
-            --glow-gold: 0 0 15px rgba(255, 230, 0, 0.6); /* Efeito de brilho */
+            --neon-gold: #FFE600; 
+            --glow-gold: 0 0 15px rgba(255, 230, 0, 0.6); 
             --neon-green: #00E676;
             --wp-color: #25D366;
             --card-shape: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
@@ -37,41 +37,101 @@
         img { max-width: 100%; height: auto; display: block; }
 
         /* --- Elementos Globais --- */
-        .top-bar { background: linear-gradient(90deg, var(--neon-green), #00c853); color: #000; text-align: center; padding: 8px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+        .top-bar { background: linear-gradient(90deg, var(--neon-green), #00c853); color: #000; text-align: center; padding: 8px; font-size: clamp(0.65rem, 2vw, 0.75rem); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
         
         header { background: rgba(3, 3, 3, 0.95); backdrop-filter: blur(5px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: 1.3rem; color: var(--neon-gold); letter-spacing: 2px; text-shadow: var(--glow-gold); }
+        .logo { font-size: clamp(1rem, 3vw, 1.3rem); color: var(--neon-gold); letter-spacing: 2px; text-shadow: var(--glow-gold); }
         .logo span { color: var(--text-main); text-shadow: none; }
         nav ul { display: flex; gap: 20px; list-style: none; }
         nav ul li a { font-size: 0.8rem; font-weight: 600; transition: color 0.2s; }
         nav ul li a:hover { color: var(--neon-gold); text-shadow: var(--glow-gold); }
 
-        /* --- ALTERADO: Apenas o fundo expandido e mais chamativo --- */
+        /* --- Hero Section --- */
         .hero { 
-            padding: 180px 5%; /* Altura do fundo ampliada para dar mais destaque */
+            padding: clamp(100px, 15vw, 180px) 5%; 
             text-align: center; 
-            background: radial-gradient(circle at center, #1c1c1c 0%, var(--bg-base) 75%); /* Degradê cinza expandido */
+            background: radial-gradient(circle at center, #1c1c1c 0%, var(--bg-base) 75%);
             border-bottom: 1px solid #222; 
         }
-        /* --- Textos mantidos com os tamanhos originais exatos --- */
-        .hero h1 { font-size: clamp(1.8rem, 4vw, 3.5rem); margin-bottom: 15px; color: #fff; text-shadow: 0 0 20px rgba(255, 230, 0, 0.3); }
+        .hero h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); margin-bottom: 15px; color: #fff; text-shadow: 0 0 20px rgba(255, 230, 0, 0.3); }
         .hero h1 span { color: var(--neon-gold); text-shadow: var(--glow-gold); }
-        .hero p { color: var(--text-sec); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; }
+        .hero p { color: var(--text-sec); font-size: clamp(0.85rem, 2vw, 1rem); max-width: 600px; margin: 0 auto 30px; }
 
-        .section-container { padding: 80px 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: 1.8rem; margin-bottom: 30px; color: var(--text-main); }
+        .section-container { padding: clamp(40px, 8vw, 80px) 5%; max-width: 1400px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: clamp(1.5rem, 4vw, 1.8rem); margin-bottom: 30px; color: var(--text-main); }
         .section-title span { color: var(--neon-green); }
 
-        /* --- Sistema de Filtros --- */
-        .filter-header { display: flex; justify-content: center; align-items: center; margin-bottom: 40px; position: relative; }
-        .filters-container { display: flex; gap: 15px; transition: all 0.3s ease; }
-        .filter-btn { background: transparent; border: 1px solid #333; color: var(--text-sec); padding: 8px 20px; border-radius: 30px; font-family: inherit; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.3s ease; }
-        .filter-btn.active, .filter-btn:hover { border-color: var(--neon-gold); color: var(--neon-gold); background: rgba(255, 230, 0, 0.05); box-shadow: var(--glow-gold); }
+        /* --- Sistema de Filtros (MENU HAMBÚRGUER) --- */
+        .filter-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; }
+        
+        .hamburger-btn {
+            background: transparent;
+            border: 1px solid #333;
+            color: var(--text-main);
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-family: inherit;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        .hamburger-btn:hover, .hamburger-btn.active {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+            background: rgba(255, 230, 0, 0.05);
+            box-shadow: var(--glow-gold);
+        }
+        .hamburger-icon { font-size: 1.2rem; line-height: 1; }
 
-        .mobile-menu-trigger { display: none; font-size: 1.5rem; color: var(--neon-gold); cursor: pointer; padding: 10px; background: transparent; border: none; text-shadow: var(--glow-gold); }
+        /* Dropdown de Filtros */
+        .filters-dropdown {
+            display: none; /* Escondido por padrão */
+            flex-direction: column;
+            position: absolute;
+            top: 110%;
+            background: var(--bg-surface);
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            width: 200px;
+            z-index: 100;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            animation: fadeIn 0.2s ease;
+        }
+        .filters-dropdown.show { display: flex; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .filter-item {
+            background: transparent;
+            border: none;
+            color: var(--text-sec);
+            padding: 15px 20px;
+            text-align: left;
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .filter-item:last-child { border-bottom: none; }
+        .filter-item:hover, .filter-item.active {
+            color: var(--neon-gold);
+            background: #111;
+            padding-left: 25px; /* Efeito visual de seleção */
+        }
 
         /* --- Grid de Produtos --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        /* Ajuste dinâmico: no PC ficam até 4 por linha, no celular 1 ou 2 dependendo da tela */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         
         .product-card { background: var(--bg-surface); clip-path: var(--card-shape); position: relative; display: flex; flex-direction: column; transition: transform 0.3s ease, opacity 0.4s ease; cursor: pointer; }
         .product-card.hide { display: none; }
@@ -85,8 +145,8 @@
         .product-card:hover .img-container img { transform: scale(1.1); }
         
         .product-info { position: relative; z-index: 2; padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 0.95rem; margin-bottom: 8px; color: #fff; letter-spacing: 1px; font-weight: 800;}
-        .product-price { font-size: 1.3rem; color: var(--neon-gold); font-weight: 800; margin-bottom: 15px; text-shadow: 0 0 5px rgba(255,230,0,0.3); }
+        .product-title { font-size: 0.9rem; margin-bottom: 8px; color: #fff; letter-spacing: 1px; font-weight: 800; line-height: 1.3;}
+        .product-price { font-size: 1.2rem; color: var(--neon-gold); font-weight: 800; margin-bottom: 15px; text-shadow: 0 0 5px rgba(255,230,0,0.3); }
         
         .btn-buy { margin-top: auto; background: transparent; color: var(--neon-gold); border: 1px solid var(--neon-gold); padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); transition: all 0.3s; cursor: pointer; width: 100%; }
         .product-card:hover .btn-buy { background: var(--neon-gold); color: #000; box-shadow: var(--glow-gold); }
@@ -95,88 +155,89 @@
 
         /* --- Seção Lojas Físicas --- */
         .store-locator { display: flex; flex-wrap: wrap; background: var(--bg-surface); border: 1px solid #222; border-radius: 10px; overflow: hidden; }
-        .store-info { flex: 1 1 300px; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
-        .store-info h3 { color: var(--neon-gold); margin-bottom: 15px; font-size: 1.5rem; text-shadow: var(--glow-gold);}
+        .store-info { flex: 1 1 300px; padding: clamp(20px, 5vw, 40px); display: flex; flex-direction: column; justify-content: center; }
+        .store-info h3 { color: var(--neon-gold); margin-bottom: 15px; font-size: clamp(1.2rem, 3vw, 1.5rem); text-shadow: var(--glow-gold);}
         .store-info p { margin-bottom: 10px; color: var(--text-sec); font-size: 0.9rem; line-height: 1.6;}
         
-        .store-map-placeholder { flex: 1 1 400px; min-height: 300px; background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; position: relative; }
+        .store-map-placeholder { flex: 1 1 300px; min-height: 250px; background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; position: relative; }
         .store-map-placeholder::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
         
-        .map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--neon-green); color: #000; padding: 10px 20px; font-weight: bold; z-index: 10; border-radius: 30px; cursor: pointer; transition: transform 0.3s; }
+        .map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--neon-green); color: #000; padding: 10px 20px; font-weight: bold; z-index: 10; border-radius: 30px; cursor: pointer; transition: transform 0.3s; font-size: 0.85rem; text-align: center;}
         .map-pin:hover { transform: translate(-50%, -55%) scale(1.05); }
 
         /* --- MODAL PREMIUM --- */
         .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; padding: 15px; opacity: 0; transition: opacity 0.3s ease;
         }
         .modal-overlay.active { display: flex; opacity: 1; }
         
         .modal-content {
-            background: #000; border: 1px solid #333; width: 100%; max-width: 1050px; display: flex; overflow: hidden; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 15px 50px rgba(0,0,0,0.8); border-radius: 4px;
+            background: #000; border: 1px solid #333; width: 100%; max-width: 1000px; display: flex; overflow: hidden; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 15px 50px rgba(0,0,0,0.8); border-radius: 8px; max-height: 95vh;
         }
         .modal-overlay.active .modal-content { transform: translateY(0); }
 
-        .modal-close { position: absolute; top: 15px; right: 20px; background: transparent; border: none; color: #fff; font-size: 2rem; cursor: pointer; z-index: 10; transition: color 0.3s; line-height: 1; }
-        .modal-close:hover { color: #ff3333; }
+        .modal-close { position: absolute; top: 10px; right: 15px; background: #111; border: 1px solid #333; border-radius: 50%; width: 35px; height: 35px; color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 10; transition: all 0.3s; display: flex; justify-content: center; align-items: center; }
+        .modal-close:hover { color: #ff3333; border-color: #ff3333; }
 
         .modal-img-area { flex: 1.2; background: #0a0a0a; display: flex; justify-content: center; align-items: center; position: relative; border-right: 1px solid #222; }
-        .modal-img-area img { width: 100%; height: 100%; max-height: 600px; object-fit: contain; }
+        .modal-img-area img { width: 100%; height: 100%; max-height: 500px; object-fit: contain; }
         
-        .modal-info-area { flex: 1; padding: 40px; display: flex; flex-direction: column; gap: 15px; overflow-y: auto; max-height: 90vh;}
+        .modal-info-area { flex: 1; padding: clamp(20px, 4vw, 40px); display: flex; flex-direction: column; gap: 12px; overflow-y: auto;}
         
-        .modal-tags { display: flex; gap: 8px; font-size: 0.65rem; font-weight: 800; }
+        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.65rem; font-weight: 800; }
         .tag-green { color: var(--neon-green); border: 1px solid var(--neon-green); padding: 4px 8px; border-radius: 2px; }
         .tag-white { color: #fff; border: 1px solid #fff; padding: 4px 8px; border-radius: 2px; }
 
-        .modal-title-box h2 { font-size: 1.4rem; color: #fff; line-height: 1.2; margin-top: 5px;}
+        .modal-title-box h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: #fff; line-height: 1.2; margin-top: 5px;}
 
-        .price-block { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
-        .current-price { font-size: 2rem; font-weight: 800; color: var(--neon-gold); text-shadow: var(--glow-gold); }
-        .old-price { font-size: 1rem; text-decoration: line-through; color: #666; font-weight: 500;}
+        .price-block { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
+        .current-price { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: var(--neon-gold); text-shadow: var(--glow-gold); }
+        .old-price { font-size: 0.9rem; text-decoration: line-through; color: #666; font-weight: 500;}
         .discount-badge { background: #3300cc; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: bold; }
 
-        .installments { font-size: 0.85rem; color: #aaa; margin-top: -5px; }
+        .installments { font-size: 0.85rem; color: #aaa; }
         .installments strong { color: #fff; }
 
         .pix-box { background: rgba(0, 250, 154, 0.05); border: 1px solid #00fa9a; color: #00fa9a; padding: 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 5px; }
 
-        .size-selector { margin-top: 15px; }
+        .size-selector { margin-top: 10px; }
         .size-label { font-size: 0.85rem; color: #ccc; margin-bottom: 10px; display: block; font-weight: 500;}
-        .sizes-grid { display: flex; gap: 10px; }
-        .size-btn { background: transparent; border: 1px solid #444; color: #fff; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: 600; font-size: 1rem; border-radius: 2px;}
+        .sizes-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .size-btn { background: transparent; border: 1px solid #444; color: #fff; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: 600; font-size: 1rem; border-radius: 4px;}
         .size-btn:hover, .size-btn.active { border-color: var(--neon-gold); background: var(--neon-gold); color: #000; box-shadow: var(--glow-gold); }
 
-        .btn-modal-action { background: #fff; color: #000; width: 100%; padding: 18px; font-size: 1rem; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+        .btn-modal-action { background: #fff; color: #000; width: 100%; padding: 15px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; margin-top: 15px; transition: 0.3s; }
         .btn-modal-action:hover { background: var(--wp-color); color: #fff; transform: scale(1.02); }
 
-        .trust-boxes { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
-        .trust-box { display: flex; align-items: center; gap: 15px; border: 1px solid #222; padding: 15px; border-radius: 4px; }
-        .trust-icon { font-size: 1.5rem; background: #111; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: #fff;}
-        .trust-text h4 { font-size: 0.85rem; color: #fff; margin-bottom: 2px; }
-        .trust-text p { font-size: 0.75rem; color: #777; }
+        .trust-boxes { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .trust-box { display: flex; align-items: center; gap: 15px; border: 1px solid #222; padding: 12px; border-radius: 4px; }
+        .trust-icon { font-size: 1.2rem; background: #111; width: 35px; height: 35px; min-width: 35px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: #fff;}
+        .trust-text h4 { font-size: 0.8rem; color: #fff; margin-bottom: 2px; }
+        .trust-text p { font-size: 0.7rem; color: #777; }
 
         /* --- Footer --- */
         footer { background: #000; padding: 40px 5%; text-align: center; border-top: 2px solid var(--neon-gold); box-shadow: 0 -5px 20px rgba(255,230,0,0.1); }
         footer p { color: #555; font-size: 0.8rem; margin-top: 10px; }
 
-        /* --- Responsividade --- */
+        /* --- Responsividade Extra (Mobile Focus) --- */
         @media (max-width: 768px) {
-            header { flex-direction: column; gap: 15px; }
-            nav ul { display: none; }
-            .hero { padding: 110px 5%; } /* Ajuste proporcional menor para telas mobile */
+            /* Deixa a logo e os ícones em linha no mobile */
+            header { padding: 15px 5%; flex-direction: row; }
+            nav { display: none; /* Esconde links no mobile para limpar a tela */ }
             
-            .filter-header { flex-direction: column; align-items: flex-end; }
-            .mobile-menu-trigger { display: block; }
-            .filters-container { display: none; flex-direction: column; width: 100%; background: var(--bg-elevated); padding: 15px; border-radius: 10px; border: 1px solid #333; position: absolute; top: 100%; right: 0; z-index: 100; }
-            .filters-container.show { display: flex; }
-            .filter-btn { width: 100%; text-align: left; border: none; border-bottom: 1px solid #222; border-radius: 0; padding: 12px 10px; }
-            
-            .store-info { padding: 20px; }
+            .product-grid { 
+                /* Permite 2 produtos lado a lado em telas mobile um pouco maiores, ou 1 em telas muito estreitas */
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
+                gap: 15px;
+            }
 
-            .modal-content { flex-direction: column; max-height: 90vh; overflow-y: auto; }
-            .modal-img-area { min-height: 300px; border-right: none; border-bottom: 1px solid #222; }
-            .modal-info-area { padding: 20px; overflow-y: visible; max-height: none; }
-            .price-block { flex-wrap: wrap; }
+            .product-info { padding: 15px; }
+            .product-title { font-size: 0.8rem; }
+            .product-price { font-size: 1.1rem; }
+
+            .modal-content { flex-direction: column; }
+            .modal-img-area { min-height: 250px; max-height: 300px; border-right: none; border-bottom: 1px solid #222; }
+            .modal-img-area img { max-height: 250px; }
         }
     </style>
 </head>
@@ -202,13 +263,16 @@
     <section class="section-container" id="catalogo">
         <h2 class="section-title sync-font">Drop <span>Oficial</span></h2>
         
-        <div class="filter-header">
-            <button class="mobile-menu-trigger" id="btn3Dots">&#8942; FILTROS</button>
-            <div class="filters-container" id="filtersMenu">
-                <button class="filter-btn active" data-filter="todos">Todos</button>
-                <button class="filter-btn" data-filter="tenis">Tênis</button>
-                <button class="filter-btn" data-filter="roupas">Roupas</button>
-                <button class="filter-btn" data-filter="acessorios">Acessórios</button>
+        <div class="filter-wrapper">
+            <button class="hamburger-btn" id="btnFilterToggle">
+                FILTROS <span class="hamburger-icon">&#9776;</span>
+            </button>
+            
+            <div class="filters-dropdown" id="filtersDropdown">
+                <button class="filter-item active" data-filter="todos">Mostrar Todos</button>
+                <button class="filter-item" data-filter="tenis">Tênis Exclusivos</button>
+                <button class="filter-item" data-filter="roupas">Roupas / Vestuário</button>
+                <button class="filter-item" data-filter="acessorios">Acessórios</button>
             </div>
         </div>
 
@@ -351,7 +415,7 @@
                     <div class="trust-box">
                         <div class="trust-icon">📦</div>
                         <div class="trust-text">
-                            <h4>Enviamos para Brasília, DF e Região</h4>
+                            <h4>Enviamos para Brasília e Região</h4>
                             <p>Entrega rápida via motoboy ou correios.</p>
                         </div>
                     </div>
@@ -377,20 +441,39 @@
     </footer>
 
     <script>
-        const btn3Dots = document.getElementById('btn3Dots');
-        const filtersMenu = document.getElementById('filtersMenu');
-        btn3Dots.addEventListener('click', () => filtersMenu.classList.toggle('show'));
-
-        const filterBtns = document.querySelectorAll('.filter-btn');
+        // Lógica do Menu Hambúrguer de Filtros
+        const btnFilterToggle = document.getElementById('btnFilterToggle');
+        const filtersDropdown = document.getElementById('filtersDropdown');
+        const filterItems = document.querySelectorAll('.filter-item');
         const productCards = document.querySelectorAll('.product-card');
 
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                if(window.innerWidth <= 768) filtersMenu.classList.remove('show');
+        // Abre/Fecha o dropdown
+        btnFilterToggle.addEventListener('click', () => {
+            filtersDropdown.classList.toggle('show');
+            btnFilterToggle.classList.toggle('active');
+        });
 
-                const filterValue = btn.getAttribute('data-filter');
+        // Clique fora para fechar o dropdown
+        document.addEventListener('click', (e) => {
+            if (!btnFilterToggle.contains(e.target) && !filtersDropdown.contains(e.target)) {
+                filtersDropdown.classList.remove('show');
+                btnFilterToggle.classList.remove('active');
+            }
+        });
+
+        // Filtragem dos produtos
+        filterItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Atualiza classes ativas
+                filterItems.forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                
+                // Fecha o menu após escolher
+                filtersDropdown.classList.remove('show');
+                btnFilterToggle.classList.remove('active');
+
+                // Filtra os cards
+                const filterValue = item.getAttribute('data-filter');
                 productCards.forEach(card => {
                     if (filterValue === 'todos' || card.getAttribute('data-category') === filterValue) {
                         card.classList.remove('hide');
@@ -401,6 +484,7 @@
             });
         });
 
+        // Lógica do Modal
         const modalOverlay = document.getElementById('productModal');
         const closeModal = document.getElementById('closeModal');
         
@@ -435,6 +519,7 @@
             if (e.target === modalOverlay) modalOverlay.classList.remove('active');
         });
 
+        // Lógica dos Botões de Tamanho
         const sizeBtns = document.querySelectorAll('.size-btn');
         sizeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
