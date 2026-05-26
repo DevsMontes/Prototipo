@@ -3,380 +3,538 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marromenos Store | Streetwear Premium</title>
+    <title>Prototipo Premium | Marromenos Store</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Variáveis Globais --- */
+        /* --- Variáveis de Design --- */
         :root {
-            --bg-base: #030303;
-            --bg-surface: #0a0a0a;
-            --bg-elevated: #111111;
-            --text-main: #f5f5f5;
-            --text-sec: #999999;
-            --neon-gold: #FFE600; 
-            --glow-gold: 0 0 15px rgba(255, 230, 0, 0.6); 
-            --neon-green: #00E676;
-            --wp-color: #25D366;
-            --card-shape: polygon(15px 0, 100% 0, 100% calc(100% - 15px), calc(100% - 15px) 100%, 0 100%, 0 15px);
+            --bg-base: #020202;
+            --bg-card: #0a0a0a;
+            --bg-modal: #0d0d0d;
+            --text-main: #ffffff;
+            --text-sec: #888888;
+            --brand-neon: #FFE600;
+            --brand-glow: 0 0 20px rgba(255, 230, 0, 0.5);
+            --accent-green: #00E676;
+            --glass-bg: rgba(5, 5, 5, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.08);
         }
 
-        /* --- Reset e Base --- */
+        /* --- Reset Geral --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background-color: var(--bg-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+        body { background-color: var(--bg-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
         
-        ::-webkit-scrollbar { width: 8px; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--neon-gold); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-neon); }
 
-        h1, h2, h3, .sync-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
-        a { text-decoration: none; color: inherit; }
-        img { max-width: 100%; height: auto; display: block; }
+        .sync-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
 
-        /* --- Elementos Globais --- */
-        .top-bar { background: linear-gradient(90deg, var(--neon-green), #00c853); color: #000; text-align: center; padding: 8px; font-size: clamp(0.65rem, 2vw, 0.75rem); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1001;}
-        
-        /* --- CABEÇALHO (PC) --- */
+        /* --- Barra de Avisos Superior --- */
+        .top-bar { 
+            background: linear-gradient(90deg, var(--accent-green), #00b0ff); 
+            color: #000; text-align: center; padding: 10px; 
+            font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; 
+            text-transform: uppercase; position: relative; z-index: 1010;
+        }
+
+        /* --- Cabeçalho Moderno (Glassmorphism) --- */
         .main-header {
-            background: #000;
-            border-bottom: 1px solid #222;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky; top: 0; z-index: 1000;
+            display: flex; flex-direction: column; align-items: center;
+            transition: all 0.3s ease;
         }
 
         .header-top {
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100%; padding: 15px 5%;
+            display: flex; justify-content: space-between; align-items: center;
         }
-
-        .header-icons { font-size: 1.2rem; cursor: pointer; color: var(--text-main); transition: color 0.3s;}
-        .header-icons:hover { color: var(--neon-gold); }
         
-        .logo { font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--neon-gold); letter-spacing: 2px; text-shadow: var(--glow-gold); text-align: center;}
-        .logo span { color: var(--text-main); text-shadow: none; }
+        .logo { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--brand-neon); letter-spacing: 3px; text-shadow: var(--brand-glow); }
+        .logo span { color: #fff; text-shadow: none; }
+        .header-icons { font-size: 1.3rem; display: flex; gap: 20px; }
+        .mobile-menu-btn { display: none; font-size: 1.8rem; }
 
-        .desktop-nav {
-            display: flex;
-            gap: 25px;
-            padding-bottom: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav-link {
-            background: none;
-            border: none;
-            color: var(--text-main);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 0.8rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: color 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .nav-link:hover, .nav-link.active { color: var(--neon-gold); }
+        /* --- Menu Navegação Desktop com Dropdowns --- */
+        .desktop-nav { display: flex; gap: 30px; padding-bottom: 15px; position: relative; }
+        .nav-item { position: relative; padding-bottom: 5px; }
         
-        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+        .nav-link { font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; padding: 5px 0; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-neon); transition: width 0.3s; }
+        .nav-item:hover .nav-link { color: var(--brand-neon); }
+        .nav-item:hover .nav-link::after { width: 100%; }
 
-        /* --- SIDEBAR MOBILE --- */
-        .sidebar-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; opacity: 0; transition: opacity 0.3s;
+        /* Dropdown Estilizado */
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(10px);
+            background: #090909; border: 1px solid #1f1f1f; border-radius: 4px;
+            padding: 15px; min-width: 200px; display: none; flex-direction: column; gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8); opacity: 0; transition: all 0.3s ease;
         }
+        .nav-item:hover .dropdown-menu { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); }
+        .dropdown-item { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; text-align: left; color: var(--text-sec); transition: color 0.2s; }
+        .dropdown-item:hover { color: var(--brand-neon); padding-left: 5px; }
+
+        /* --- Menu Lateral Mobile --- */
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }
         .sidebar-overlay.active { display: block; opacity: 1; }
-
-        .mobile-sidebar {
-            position: fixed; top: 0; left: -100%; width: 85%; max-width: 350px; height: 100vh; background: #030303; border-right: 1px solid #222; z-index: 2001; transition: left 0.3s ease; display: flex; flex-direction: column; overflow-y: auto;
-        }
+        
+        .mobile-sidebar { position: fixed; top: 0; left: -100%; width: 85%; max-width: 320px; height: 100vh; background: #050505; border-right: 1px solid #111; z-index: 2001; transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1); display: flex; flex-direction: column; padding: 25px; overflow-y: auto; }
         .mobile-sidebar.active { left: 0; }
+        .sidebar-header { display: flex; justify-content: flex-end; margin-bottom: 30px; }
+        .close-sidebar { font-size: 2rem; color: var(--text-sec); }
+        
+        .mobile-nav-list { display: flex; flex-direction: column; gap: 5px; }
+        .mobile-nav-item { border-bottom: 1px solid #111; padding: 18px 0; display: flex; flex-direction: column; }
+        .mobile-main-link { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; width: 100%; }
+        .mobile-submenu { display: none; flex-direction: column; gap: 12px; padding: 15px 0 5px 15px; }
+        .mobile-submenu.active { display: flex; }
+        .mobile-sub-link { font-size: 0.8rem; color: var(--text-sec); text-transform: uppercase; text-align: left; }
 
-        .sidebar-header { padding: 20px; display: flex; justify-content: flex-start; border-bottom: 1px solid #1a1a1a; }
-        .close-sidebar { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+        /* --- Hero Intro --- */
+        .hero { padding: 120px 5% 80px; text-align: center; background: radial-gradient(circle at center, #111 0%, var(--bg-base) 100%); }
+        .hero h1 { font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 15px; letter-spacing: -1px; }
+        .hero h1 span { color: var(--brand-neon); text-shadow: var(--brand-glow); }
+        .hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto; font-size: clamp(0.85rem, 2vw, 1rem); line-height: 1.6; }
 
-        .sidebar-links { display: flex; flex-direction: column; }
-        .sidebar-link {
-            background: none; border: none; border-bottom: 1px solid #1a1a1a; color: #fff; padding: 20px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.3s, color 0.3s;
+        /* --- Seções e Efeito de Revelação (Scroll Animation) --- */
+        .reveal-section { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); padding: 60px 5%; max-width: 1400px; margin: 0 auto; }
+        .reveal-section.revealed { opacity: 1; transform: translateY(0); }
+        
+        .section-title { text-align: center; font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: 40px; letter-spacing: 2px; }
+        .section-title span { color: var(--brand-neon); }
+
+        /* --- Carrossel de Coleções Redondas (Diferencial Visual) --- */
+        .collections-container { display: flex; gap: 20px; overflow-x: auto; padding-bottom: 15px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+        .collections-container::-webkit-scrollbar { height: 4px; }
+        .collections-container::-webkit-scrollbar-thumb { background: #333; }
+        
+        .collection-circle { flex: 0 0 calc(16.66% - 17px); min-width: 150px; aspect-ratio: 1/1; border-radius: 50%; background: #111; overflow: hidden; position: relative; scroll-snap-align: start; cursor: pointer; border: 2px solid #222; transition: all 0.3s; }
+        .collection-circle:hover { border-color: var(--brand-neon); transform: scale(1.03); }
+        .collection-circle img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; filter: grayscale(30%); transition: all 0.4s; }
+        .collection-circle:hover img { opacity: 0.8; filter: grayscale(0); transform: scale(1.08); }
+        .collection-title { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-weight: 800; font-size: clamp(0.75rem, 2vw, 0.9rem); letter-spacing: 1px; background: rgba(0,0,0,0.4); text-shadow: 0 2px 5px #000; pointer-events: none; }
+
+        /* --- Grid Clássica de Produtos --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .product-card { background: var(--bg-card); border: 1px solid #151515; border-radius: 8px; overflow: hidden; transition: all 0.3s ease; display: flex; flex-direction: column; }
+        .product-card:hover { transform: translateY(-6px); border-color: #333; box-shadow: 0 15px 30px rgba(0,0,0,0.6); }
+        
+        .img-wrapper { position: relative; aspect-ratio: 1/1; background: #121212; overflow: hidden; }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .product-card:hover .img-wrapper img { transform: scale(1.05); }
+        
+        .tag-off { position: absolute; top: 12px; left: 12px; background: #2922ff; color: #fff; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; }
+        .tag-esgotado { position: absolute; top: 12px; right: 12px; background: #fff; color: #000; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; text-transform: uppercase; }
+
+        .product-meta { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
+        .product-name { font-size: 0.85rem; font-weight: 700; color: #ddd; margin-bottom: 8px; line-height: 1.4; letter-spacing: 0.5px; }
+        .price-box { margin-bottom: 15px; }
+        .old-price { font-size: 0.75rem; color: var(--text-sec); text-decoration: line-through; margin-right: 6px; }
+        .current-price { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
+        .installments { font-size: 0.7rem; color: var(--text-sec); margin-top: 2px; }
+        
+        .btn-details { margin-top: auto; background: #fff; color: #000; padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border-radius: 4px; transition: background 0.2s; width: 100%; }
+        .btn-details:hover { background: var(--brand-neon); }
+
+        /* --- MODAL DETALHES DO PRODUTO (Estilo Image_44c02) --- */
+        .modal-container { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.3s ease; }
+        .modal-container.active { display: flex; opacity: 1; }
+        
+        .modal-content { background: var(--bg-modal); width: 100%; max-width: 900px; border-radius: 12px; border: 1px solid #222; overflow: hidden; position: relative; display: grid; grid-template-columns: 1.1fr 0.9fr; max-height: 90vh; }
+        .btn-close-modal { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; color: #fff; background: rgba(255,255,255,0.1); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; }
+        
+        .modal-gallery { background: #111; display: flex; align-items: center; justify-content: center; padding: 20px; overflow: hidden; }
+        .modal-gallery img { width: 100%; height: auto; max-height: 60vh; object-fit: contain; }
+        
+        .modal-details-side { padding: 40px 30px; display: flex; flex-direction: column; overflow-y: auto; }
+        
+        .badges-row { display: flex; gap: 8px; margin-bottom: 15px; }
+        .badge-delivery { background: rgba(0, 230, 118, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; display: flex; align-items: center; gap: 4px; text-transform: uppercase; }
+        .badge-exclusive { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid #444; padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
+        
+        .modal-product-title { font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 800; line-height: 1.2; margin-bottom: 15px; text-transform: uppercase; }
+        
+        .modal-price-container { margin-bottom: 20px; }
+        .modal-main-price { font-size: 2rem; font-weight: 800; color: var(--brand-neon); display: flex; align-items: center; gap: 10px; }
+        .modal-main-price .modal-old-price { font-size: 1rem; color: #555; text-decoration: line-through; font-weight: 500; }
+        .modal-badge-off { background: #2922ff; color: #fff; font-size: 0.7rem; padding: 3px 6px; border-radius: 3px; font-weight: 700; }
+        .modal-installments-text { font-size: 0.8rem; color: var(--text-sec); margin-top: 4px; }
+        
+        .promo-pill { background: rgba(0, 230, 118, 0.08); border: 1px dashed var(--accent-green); color: var(--accent-green); padding: 10px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; margin-bottom: 25px; display: flex; align-items: center; gap: 6px; }
+        
+        .size-section-title { font-size: 0.8rem; font-weight: 700; color: var(--text-sec); text-transform: uppercase; margin-bottom: 10px; }
+        .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
+        .size-btn { width: 45px; height: 45px; border: 1px solid #333; border-radius: 6px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .size-btn:hover { border-color: #666; }
+        .size-btn.selected { background: var(--brand-neon); color: #000; border-color: var(--brand-neon); font-weight: 800; box-shadow: var(--brand-glow); }
+        
+        .btn-whatsapp-checkout { background: #fff; color: #000; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; padding: 16px; text-align: center; border-radius: 6px; letter-spacing: 0.5px; transition: background 0.2s; width: 100%; margin-bottom: 25px; }
+        .btn-whatsapp-checkout:hover { background: var(--brand-neon); }
+        
+        .trust-info-box { border-top: 1px solid #1a1a1a; padding-top: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .trust-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.75rem; color: var(--text-sec); line-height: 1.4; }
+        .trust-item strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        /* --- Footer Estilizado --- */
+        footer { background: #000; padding: 40px 5%; text-align: center; border-top: 1px solid #111; }
+        footer p { color: #444; font-size: 0.75rem; margin-top: 8px; }
+
+        /* --- Responsividade Inteligente --- */
+        @media (max-width: 900px) {
+            .modal-content { grid-template-columns: 1fr; max-height: 95vh; }
+            .modal-gallery { padding: 30px 20px 10px; }
+            .modal-details-side { padding: 20px; }
         }
-        .sidebar-link:hover, .sidebar-link.active { color: var(--neon-gold); background: #0a0a0a; }
-        .sidebar-link span:last-child { font-size: 1.2rem; font-weight: 400; color: #666; }
 
-        /* --- Hero Section --- */
-        .hero { 
-            padding: clamp(100px, 15vw, 150px) 5%; 
-            text-align: center; 
-            background: radial-gradient(circle at center, #1c1c1c 0%, var(--bg-base) 75%);
-            border-bottom: 1px solid #222; 
-        }
-        .hero h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); margin-bottom: 15px; color: #fff; text-shadow: 0 0 20px rgba(255, 230, 0, 0.3); }
-        .hero h1 span { color: var(--neon-gold); text-shadow: var(--glow-gold); }
-        .hero p { color: var(--text-sec); font-size: clamp(0.85rem, 2vw, 1rem); max-width: 600px; margin: 0 auto; }
-
-        .section-container { padding: clamp(40px, 8vw, 80px) 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: clamp(1.5rem, 4vw, 1.8rem); margin-bottom: 40px; color: var(--text-main); }
-        .section-title span { color: var(--neon-green); }
-
-        /* --- Grid de Produtos --- */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
-        
-        .product-card { background: var(--bg-surface); clip-path: var(--card-shape); position: relative; display: flex; flex-direction: column; transition: transform 0.3s ease, opacity 0.4s ease; cursor: pointer; }
-        .product-card.hide { display: none; }
-
-        .product-card::before { content: ''; position: absolute; inset: 1px; background: var(--bg-elevated); clip-path: var(--card-shape); z-index: 1; transition: background 0.3s; }
-        .product-card:hover { transform: translateY(-5px); background: var(--neon-gold); box-shadow: var(--glow-gold); }
-        .product-card:hover::before { background: var(--bg-surface); }
-
-        .img-container { position: relative; z-index: 2; width: 100%; aspect-ratio: 1 / 1; overflow: hidden; border-bottom: 1px solid #222; }
-        .img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
-        .product-card:hover .img-container img { transform: scale(1.1); }
-        
-        .product-info { position: relative; z-index: 2; padding: 20px; display: flex; flex-direction: column; flex-grow: 1; }
-        .product-title { font-size: 0.9rem; margin-bottom: 8px; color: #fff; letter-spacing: 1px; font-weight: 800; line-height: 1.3;}
-        .product-price { font-size: 1.2rem; color: var(--neon-gold); font-weight: 800; margin-bottom: 15px; text-shadow: 0 0 5px rgba(255,230,0,0.3); }
-        
-        .btn-buy { margin-top: auto; background: transparent; color: var(--neon-gold); border: 1px solid var(--neon-gold); padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); transition: all 0.3s; cursor: pointer; width: 100%; }
-        .product-card:hover .btn-buy { background: var(--neon-gold); color: #000; box-shadow: var(--glow-gold); }
-        .card-tag { position: absolute; top: 15px; left: 15px; background: var(--neon-green); color: #000; padding: 4px 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); z-index: 5; }
-
-        /* --- Seção Lojas Físicas --- */
-        .store-locator { display: flex; flex-wrap: wrap; background: var(--bg-surface); border: 1px solid #222; border-radius: 10px; overflow: hidden; }
-        .store-info { flex: 1 1 300px; padding: clamp(20px, 5vw, 40px); display: flex; flex-direction: column; justify-content: center; }
-        .store-info h3 { color: var(--neon-gold); margin-bottom: 15px; font-size: clamp(1.2rem, 3vw, 1.5rem); text-shadow: var(--glow-gold);}
-        .store-info p { margin-bottom: 10px; color: var(--text-sec); font-size: 0.9rem; line-height: 1.6;}
-        
-        .store-map-placeholder { flex: 1 1 300px; min-height: 250px; background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; position: relative; }
-        .store-map-placeholder::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-
-        /* --- Botão Flutuante WhatsApp (Extra Mobile) --- */
-        .float-whatsapp {
-            position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; transition: transform 0.3s;
-        }
-        .float-whatsapp:hover { transform: scale(1.1); }
-
-        /* --- Footer --- */
-        footer { background: #000; padding: 40px 5%; text-align: center; border-top: 2px solid var(--neon-gold); }
-        footer p { color: #555; font-size: 0.8rem; margin-top: 10px; }
-
-        /* --- RESPONSIVIDADE --- */
         @media (max-width: 768px) {
-            .desktop-nav { display: none; /* Esconde menu horizontal no celular */ }
-            .hidden-mobile { display: none; }
-            
-            .mobile-menu-btn { display: block; /* Mostra hambúrguer */ }
-            .header-top { justify-content: space-between; padding: 15px 5%;}
-            
+            .desktop-nav { display: none; }
+            .mobile-menu-btn { display: block; }
+            .header-top { padding: 15px 5%; }
+            .collection-circle { flex: 0 0 calc(33.33% - 14px); min-width: 110px; }
             .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
-            .product-info { padding: 15px; }
-            .product-title { font-size: 0.8rem; }
-            .product-price { font-size: 1.1rem; }
+            .product-meta { padding: 12px; }
+            .product-name { font-size: 0.75rem; margin-bottom: 4px; }
+            .current-price { font-size: 0.95rem; }
+            .btn-details { padding: 10px; font-size: 0.7rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-bar">🔥 Frete Grátis para todo o DF nas compras acima de R$ 299</div>
+    <div class="top-bar">🔥 Prototipo para Apresentação - Marromenos Store</div>
 
     <header class="main-header">
         <div class="header-top">
-            <button class="mobile-menu-btn" id="btnOpenMenu">&#9776;</button>
-            <div class="header-icons hidden-mobile">&#128269;</div> <div class="logo sync-font"><span>+</span> MARROMENOS</div>
-            <div class="header-icons">&#128717;</div> </div>
+            <button class="mobile-menu-btn" id="openMenu">&#9776;</button>
+            <div class="logo sync-font"><span>+</span> MARROMENOS</div>
+            <div class="header-icons"><span>&#128717;</span></div>
+        </div>
         
         <nav class="desktop-nav">
-            <button class="nav-link active" data-filter="todos">TODOS OS PRODUTOS</button>
-            <button class="nav-link" data-filter="tenis">TÊNIS EXCLUSIVOS <span style="font-size: 0.6rem; margin-left: 3px;">&#8964;</span></button>
-            <button class="nav-link" data-filter="roupas">CAMISETAS E CORTA VENTO <span style="font-size: 0.6rem; margin-left: 3px;">&#8964;</span></button>
-            <button class="nav-link" data-filter="acessorios">ACESSÓRIOS E BONÉS</button>
+            <div class="nav-item">
+                <button class="nav-link">Marcas de Artista &#11167;</button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item">Syna World</button>
+                    <button class="dropdown-item">Corteiz</button>
+                    <button class="dropdown-item">Trapstar</button>
+                    <button class="dropdown-item">Supreme</button>
+                </div>
+            </div>
+            <div class="nav-item">
+                <button class="nav-link">Tênis Exclusive &#11167;</button>
+                <div class="dropdown-menu">
+                    <button class="dropdown-item">Nike Dunk</button>
+                    <button class="dropdown-item">Air Force 1</button>
+                    <button class="dropdown-item">Lançamentos</button>
+                </div>
+            </div>
+            <div class="nav-item"><button class="nav-link">Camisetas</button></div>
+            <div class="nav-item"><button class="nav-link">Corta Vento</button></div>
+            <div class="nav-item"><button class="nav-link">Bonés & Acessórios</button></div>
         </nav>
     </header>
 
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-    <div class="mobile-sidebar" id="mobileSidebar">
+    <div class="sidebar-overlay" id="overlay"></div>
+    <div class="mobile-sidebar" id="sidebar">
         <div class="sidebar-header">
-            <button class="close-sidebar" id="btnCloseMenu">&times;</button>
+            <button class="close-sidebar" id="closeMenu">&times;</button>
         </div>
-        <div class="sidebar-links">
-            <button class="sidebar-link active" data-filter="todos"><span>TODOS OS PRODUTOS</span> <span>+</span></button>
-            <button class="sidebar-link" data-filter="tenis"><span>TÊNIS EXCLUSIVOS</span> <span>+</span></button>
-            <button class="sidebar-link" data-filter="roupas"><span>CAMISETAS</span> <span>+</span></button>
-            <button class="sidebar-link" data-filter="roupas"><span>CORTA VENTO</span> <span>+</span></button>
-            <button class="sidebar-link" data-filter="acessorios"><span>BONÉS</span> <span>+</span></button>
-            <button class="sidebar-link" data-filter="acessorios"><span>ACESSÓRIOS</span> <span>+</span></button>
+        <div class="mobile-nav-list">
+            <div class="mobile-nav-item">
+                <button class="mobile-main-link trigger-submenu"><span>Marcas de Artista</span> <span>+</span></button>
+                <div class="mobile-submenu">
+                    <button class="mobile-sub-link">Syna World</button>
+                    <button class="mobile-sub-link">Corteiz</button>
+                    <button class="mobile-sub-link">Trapstar</button>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <button class="mobile-main-link trigger-submenu"><span>Tênis Exclusive</span> <span>+</span></button>
+                <div class="mobile-submenu">
+                    <button class="mobile-sub-link">Nike Dunk</button>
+                    <button class="mobile-sub-link">Air Force 1</button>
+                </div>
+            </div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Camisetas</span></button></div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Corta Vento</span></button></div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Acessórios</span></button></div>
         </div>
     </div>
 
     <section class="hero">
-        <h1 class="sync-font">Vista sua <span>Atitude</span>.</h1>
-        <p>A loja referência em Streetwear no DF. Marcas originais, lançamentos exclusivos e o estilo que você respeita.</p>
+        <h1 class="sync-font">Vista sua <span>Atitude</span></h1>
+        <p>Apresentação de vitrine conceitual e estruturada. Navegue e teste a interação completa de seleção e visualização.</p>
     </section>
 
-    <section class="section-container" id="catalogo">
-        <h2 class="section-title sync-font">Drop <span>Oficial</span></h2>
-
-        <div class="product-grid" id="productGrid">
-            <div class="product-card" data-category="tenis">
-                <div class="img-container">
-                    <div class="card-tag">Exclusivo</div>
-                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Nike Air">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">TÊNIS NIKE AIR FIRE - RED</h3>
-                    <p class="product-price">R$ 549,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+    <section class="reveal-section">
+        <h2 class="section-title sync-font">Navegue por <span>Coleções</span></h2>
+        <div class="collections-container">
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80" alt="Camisetas">
+                <div class="collection-title sync-font">Camisetas</div>
             </div>
-
-            <div class="product-card" data-category="roupas">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Moletom">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">BLUSA MOLETOM THUG NINE - PRETO</h3>
-                    <p class="product-price">R$ 289,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&q=80" alt="Tênis">
+                <div class="collection-title sync-font">Tênis</div>
             </div>
-
-            <div class="product-card" data-category="roupas">
-                <div class="img-container">
-                    <div class="card-tag" style="background: var(--neon-gold);">Restock</div>
-                    <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Camiseta">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">CAMISETA CORE MCD - BRANCA</h3>
-                    <p class="product-price">R$ 89,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" alt="Corta Vento">
+                <div class="collection-title sync-font">Corta Vento</div>
             </div>
-
-            <div class="product-card" data-category="acessorios">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Boné">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">BONÉ SNAPBACK ORIGINAL</h3>
-                    <p class="product-price">R$ 119,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80" alt="Bonés">
+                <div class="collection-title sync-font">Bonés</div>
             </div>
-
-            <div class="product-card" data-category="tenis">
-                <div class="img-container">
-                    <div class="card-tag">Lançamento</div>
-                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Asics">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">SNEAKER ASICS GEL - GREEN</h3>
-                    <p class="product-price">R$ 649,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?w=400&q=80" alt="Shorts">
+                <div class="collection-title sync-font">Shorts</div>
             </div>
-
-            <div class="product-card" data-category="roupas">
-                <div class="img-container">
-                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Corta Vento">
-                </div>
-                <div class="product-info">
-                    <h3 class="product-title sync-font">JAQUETA CORTA-VENTO MCD</h3>
-                    <p class="product-price">R$ 229,90</p>
-                    <button class="btn-buy">Ver Detalhes</button>
-                </div>
+            <div class="collection-circle">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=400&q=80" alt="Calças">
+                <div class="collection-title sync-font">Calças</div>
             </div>
         </div>
     </section>
 
-    <section class="section-container" id="loja">
-        <h2 class="section-title sync-font">Onde <span>Estamos</span></h2>
-        
-        <div class="store-locator">
-            <div class="store-info">
-                <h3 class="sync-font">Matriz Recanto das Emas</h3>
-                <p>📍 Quadra 203, Recanto das Emas<br>Brasília, DF - CEP 72600-000</p>
-                <p>🕒 <strong>Seg - Sáb:</strong> 09:00 às 19:00<br>🕒 <strong>Domingo:</strong> Fechado</p>
-                <br>
-                <p>Venha conhecer nosso espaço físico, provar as peças e tomar um café com nossa equipe.</p>
+    <section class="reveal-section">
+        <h2 class="section-title sync-font">Últimas <span>Peças</span></h2>
+        <div class="product-grid">
+            
+            <div class="product-card" data-name="Camiseta NK Court Heritage - Branca" data-price="79,90" data-old="119,90" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
+                <div class="img-wrapper">
+                    <span class="tag-off">33% OFF</span>
+                    <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="Camiseta">
+                </div>
+                <div class="product-meta">
+                    <h3 class="product-name">CAMISETA NK COURT HERITAGE - BRANCA</h3>
+                    <div class="price-box">
+                        <span class="old-price">R$ 119,90</span>
+                        <span class="current-price">R$ 79,90</span>
+                        <div class="installments">em até 12x de R$ 7,98</div>
+                    </div>
+                    <button class="btn-details">Ver Detalhes</button>
+                </div>
             </div>
-            <div class="store-map-placeholder"></div>
+
+            <div class="product-card" data-name="Tênis NK Dunk Twist Nobuck - Preto" data-price="200,00" data-old="299,90" data-img="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80">
+                <div class="img-wrapper">
+                    <span class="tag-off">33% OFF</span>
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80" alt="Nike Dunk">
+                </div>
+                <div class="product-meta">
+                    <h3 class="product-name">TÊNIS NK DUNK TWIST NOBUCK - PRETO</h3>
+                    <div class="price-box">
+                        <span class="old-price">R$ 299,90</span>
+                        <span class="current-price">R$ 200,00</span>
+                        <div class="installments">em até 12x de R$ 19,97</div>
+                    </div>
+                    <button class="btn-details">Ver Detalhes</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-name="Camiseta NK Future - Azul Royal" data-price="79,90" data-old="0" data-img="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80">
+                <div class="img-wrapper">
+                    <span class="tag-esgotado">Esgotado</span>
+                    <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80" alt="Camiseta Azul">
+                </div>
+                <div class="product-meta">
+                    <h3 class="product-name">CAMISETA NK FUTURE - AZUL ROYAL</h3>
+                    <div class="price-box">
+                        <span class="current-price">R$ 79,90</span>
+                        <div class="installments">em até 12x de R$ 7,98</div>
+                    </div>
+                    <button class="btn-details">Ver Detalhes</button>
+                </div>
+            </div>
+
+            <div class="product-card" data-name="Tênis NK Air Force 1 - Branco Premium" data-price="200,00" data-old="227,00" data-img="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&q=80">
+                <div class="img-wrapper">
+                    <span class="tag-off">12% OFF</span>
+                    <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600&q=80" alt="Air Force">
+                </div>
+                <div class="product-meta">
+                    <h3 class="product-name">TÊNIS NK AIR FORCE 1 - BRANCO PREMIUM</h3>
+                    <div class="price-box">
+                        <span class="old-price">R$ 227,00</span>
+                        <span class="current-price">R$ 200,00</span>
+                        <div class="installments">em até 12x de R$ 19,97</div>
+                    </div>
+                    <button class="btn-details">Ver Detalhes</button>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <a href="#" class="float-whatsapp">✆</a>
+    <div class="modal-container" id="productModal">
+        <div class="modal-content">
+            <button class="btn-close-modal" id="closeModal">&times;</button>
+            
+            <div class="modal-gallery">
+                <img src="" id="modalImg" alt="Imagem do Produto">
+            </div>
+            
+            <div class="modal-details-side">
+                <div class="badges-row">
+                    <span class="badge-delivery">🚚 Pronta Entrega</span>
+                    <span class="badge-exclusive">Exclusividade</span>
+                </div>
+                
+                <h2 class="modal-product-title" id="modalTitle">Nome do Produto</h2>
+                
+                <div class="modal-price-container">
+                    <div class="modal-main-price">
+                        <span id="modalCurrentPrice">R$ 89,90</span>
+                        <span class="modal-old-price" id="modalOldPrice">R$ 119,90</span>
+                        <span class="modal-badge-off" id="modalDiscountTag">25% OFF</span>
+                    </div>
+                    <div class="modal-installments-text" id="modalInstallments">em até 12x de R$ 7,49 sem juros</div>
+                </div>
+                
+                <div class="promo-pill">
+                    💵 5% OFF no PIX + Envio Prioritário
+                </div>
+                
+                <div class="size-section">
+                    <div class="size-section-title">Selecione o Tamanho:</div>
+                    <div class="size-selector">
+                        <button class="size-btn">P</button>
+                        <button class="size-btn selected">M</button>
+                        <button class="size-btn">G</button>
+                        <button class="size-btn">GG</button>
+                    </div>
+                </div>
+                
+                <button class="btn-whatsapp-checkout">Fechar Pedido no WhatsApp</button>
+                
+                <div class="trust-info-box">
+                    <div class="trust-item">
+                        <span>📦</span>
+                        <div>
+                            <strong>Enviamos para Brasília e Região</strong>
+                            Entrega rápida via motoboy ou correios.
+                        </div>
+                    </div>
+                    <div class="trust-item">
+                        <span>🛡️</span>
+                        <div>
+                            <strong>Garantia de Compra</strong>
+                            Direito de troca ou reembolso garantido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer>
-        <div class="logo sync-font" style="margin-bottom: 10px;">
-            <span style="color: var(--neon-green);">+</span> MARROMENOS STORE
-        </div>
-        <p><strong>Loja Matriz:</strong> Quadra 203, Recanto das Emas, Brasília - DF</p>
-        <p><strong>CNPJ:</strong> 47.512.047/0001-06</p>
-        <p style="margin-top: 20px; color: #333;">&copy; 2026 Marromenos Store. Catálogo Exclusivo.</p>
+        <p class="sync-font">+ MARROMENOS STORE</p>
+        <p>Ambiente de Demonstração Concept para Cliente &copy; 2026</p>
     </footer>
 
     <script>
-        // LÓGICA DE ABERTURA E FECHAMENTO DO MENU MOBILE
-        const btnOpenMenu = document.getElementById('btnOpenMenu');
-        const btnCloseMenu = document.getElementById('btnCloseMenu');
-        const mobileSidebar = document.getElementById('mobileSidebar');
-        const sidebarOverlay = document.getElementById('sidebarOverlay');
-
-        function openMenu() {
-            mobileSidebar.classList.add('active');
-            sidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Impede o scroll no fundo
-        }
-
-        function closeMenu() {
-            mobileSidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Retorna o scroll
-        }
-
-        btnOpenMenu.addEventListener('click', openMenu);
-        btnCloseMenu.addEventListener('click', closeMenu);
-        sidebarOverlay.addEventListener('click', closeMenu);
-
-        // LÓGICA DE FILTRAGEM (PC E MOBILE UNIFICADOS)
-        const allFilterBtns = document.querySelectorAll('.nav-link, .sidebar-link');
-        const productCards = document.querySelectorAll('.product-card');
-
-        allFilterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove 'active' de todos os botões (PC e Mobile)
-                allFilterBtns.forEach(b => b.classList.remove('active'));
-                
-                // Adiciona 'active' no botão clicado
-                btn.classList.add('active');
-
-                // Pega a categoria desejada
-                const filterValue = btn.getAttribute('data-filter');
-
-                // Mostra/Esconde os produtos
-                productCards.forEach(card => {
-                    if (filterValue === 'todos' || card.getAttribute('data-category') === filterValue) {
-                        card.classList.remove('hide');
-                    } else {
-                        card.classList.add('hide');
-                    }
-                });
-
-                // Se o usuário clicou no menu mobile, fecha a aba automaticamente após a escolha
-                if (window.innerWidth <= 768) {
-                    closeMenu();
-                    // Faz scroll suave até a vitrine
-                    document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+        // 1. ANIMAÇÃO REVEAL NO SCROLL (Aparecer rodapé/produtos gradualmente)
+        const sections = document.querySelectorAll('.reveal-section');
+        const revealOnScroll = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
                 }
             });
+        }, { threshold: 0.1 });
+
+        sections.forEach(sec => revealOnScroll.observe(sec));
+
+        // 2. CONTROLE DO MENU HAMBÚRGUER MOBILE
+        const openMenuBtn = document.getElementById('openMenu');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        openMenuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        const closeMobileNav = () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        };
+
+        closeMenuBtn.addEventListener('click', closeMobileNav);
+        overlay.addEventListener('click', closeMobileNav);
+
+        // Submenus expansíveis no Mobile (Click no +)
+        document.querySelectorAll('.trigger-submenu').forEach(trigger => {
+            trigger.addEventListener('click', () => {
+                const submenu = trigger.nextElementSibling;
+                const icon = trigger.querySelector('span:last-child');
+                submenu.classList.toggle('active');
+                icon.textContent = submenu.classList.contains('active') ? '−' : '+';
+            });
+        });
+
+        // 3. SELEÇÃO DE TAMANHOS DENTRO DO MODAL
+        document.querySelectorAll('.size-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+            });
+        });
+
+        // 4. LÓGICA E INJEÇÃO DINÂMICA DO MODAL (IMAGE_44C02)
+        const modal = document.getElementById('productModal');
+        const closeModalBtn = document.getElementById('closeModal');
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.querySelector('.btn-details').addEventListener('click', () => {
+                const name = card.getAttribute('data-name');
+                const price = card.getAttribute('data-price');
+                const oldPrice = card.getAttribute('data-old');
+                const imgSrc = card.getAttribute('data-img');
+
+                // Injeta dados no Modal
+                document.getElementById('modalImg').src = imgSrc;
+                document.getElementById('modalTitle').textContent = name;
+                document.getElementById('modalCurrentPrice').textContent = `R$ ${price}`;
+                
+                const oldPriceEl = document.getElementById('modalOldPrice');
+                const discountTag = document.getElementById('modalDiscountTag');
+                const installmentsEl = document.getElementById('modalInstallments');
+
+                if (oldPrice && oldPrice !== "0") {
+                    oldPriceEl.style.display = "inline";
+                    oldPriceEl.textContent = `R$ ${oldPrice}`;
+                    discountTag.style.display = "inline";
+                } else {
+                    oldPriceEl.style.display = "none";
+                    discountTag.style.display = "none";
+                }
+
+                // Cálculo de parcelas simuladas
+                const priceFloat = parseFloat(price.replace(',', '.'));
+                installmentsEl.textContent = `em até 12x de R$ ${(priceFloat / 12).toFixed(2).replace('.', ',')} sem juros`;
+
+                // Exibe Modal
+                modal.classList.add('active');
+            });
+        });
+
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal || e.target === closeModalBtn) {
+                modal.classList.remove('active');
+            }
         });
     </script>
 </body>
