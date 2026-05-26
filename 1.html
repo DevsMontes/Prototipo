@@ -154,17 +154,20 @@
 }
 
 /* A imagem com o zoom aplicado */
+/* A imagem com o zoom aplicado e ajuste de posição */
 .logo-wrapper img { 
     width: 100%; 
     height: 100%; 
     object-fit: cover; 
-    transform: scale(1.35); /* ESSE É O ZOOM! Se ainda sobrar espaço preto, aumente para 1.4 ou 1.5 */
+    display: block; /* Remove espaços fantasmas da imagem */
+    /* O translateY(-X%) empurra a imagem para CIMA. Ajuste esse número se precisar! */
+    transform: scale(1.35) translateY(-5%); 
     transition: transform var(--transition-bounce); 
 }
 
-/* Efeito ao passar o mouse */
+/* Efeito ao passar o mouse (precisa ter o mesmo translateY para não dar "pulo") */
 .brand-logo:hover .logo-wrapper img { 
-    transform: scale(1.45); 
+    transform: scale(1.45) translateY(-5%); 
 }
         .header-actions { display: flex; gap: 20px; align-items: center; color: var(--text-main); }
         .action-btn { font-size: 1.3rem; transition: color 0.3s, transform 0.3s; display: flex; align-items: center; justify-content: center; }
