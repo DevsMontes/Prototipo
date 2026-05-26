@@ -37,100 +37,98 @@
         img { max-width: 100%; height: auto; display: block; }
 
         /* --- Elementos Globais --- */
-        .top-bar { background: linear-gradient(90deg, var(--neon-green), #00c853); color: #000; text-align: center; padding: 8px; font-size: clamp(0.65rem, 2vw, 0.75rem); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+        .top-bar { background: linear-gradient(90deg, var(--neon-green), #00c853); color: #000; text-align: center; padding: 8px; font-size: clamp(0.65rem, 2vw, 0.75rem); font-weight: 800; letter-spacing: 2px; text-transform: uppercase; position: relative; z-index: 1001;}
         
-        header { background: rgba(3, 3, 3, 0.95); backdrop-filter: blur(5px); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
-        .logo { font-size: clamp(1rem, 3vw, 1.3rem); color: var(--neon-gold); letter-spacing: 2px; text-shadow: var(--glow-gold); }
+        /* --- CABEÇALHO (PC) --- */
+        .main-header {
+            background: #000;
+            border-bottom: 1px solid #222;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .header-top {
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-icons { font-size: 1.2rem; cursor: pointer; color: var(--text-main); transition: color 0.3s;}
+        .header-icons:hover { color: var(--neon-gold); }
+        
+        .logo { font-size: clamp(1.2rem, 3vw, 1.5rem); color: var(--neon-gold); letter-spacing: 2px; text-shadow: var(--glow-gold); text-align: center;}
         .logo span { color: var(--text-main); text-shadow: none; }
-        nav ul { display: flex; gap: 20px; list-style: none; }
-        nav ul li a { font-size: 0.8rem; font-weight: 600; transition: color 0.2s; }
-        nav ul li a:hover { color: var(--neon-gold); text-shadow: var(--glow-gold); }
+
+        .desktop-nav {
+            display: flex;
+            gap: 25px;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-link {
+            background: none;
+            border: none;
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-link:hover, .nav-link.active { color: var(--neon-gold); }
+        
+        .mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 1.8rem; cursor: pointer; }
+
+        /* --- SIDEBAR MOBILE --- */
+        .sidebar-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; opacity: 0; transition: opacity 0.3s;
+        }
+        .sidebar-overlay.active { display: block; opacity: 1; }
+
+        .mobile-sidebar {
+            position: fixed; top: 0; left: -100%; width: 85%; max-width: 350px; height: 100vh; background: #030303; border-right: 1px solid #222; z-index: 2001; transition: left 0.3s ease; display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .mobile-sidebar.active { left: 0; }
+
+        .sidebar-header { padding: 20px; display: flex; justify-content: flex-start; border-bottom: 1px solid #1a1a1a; }
+        .close-sidebar { background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; }
+
+        .sidebar-links { display: flex; flex-direction: column; }
+        .sidebar-link {
+            background: none; border: none; border-bottom: 1px solid #1a1a1a; color: #fff; padding: 20px; text-align: left; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: background 0.3s, color 0.3s;
+        }
+        .sidebar-link:hover, .sidebar-link.active { color: var(--neon-gold); background: #0a0a0a; }
+        .sidebar-link span:last-child { font-size: 1.2rem; font-weight: 400; color: #666; }
 
         /* --- Hero Section --- */
         .hero { 
-            padding: clamp(100px, 15vw, 180px) 5%; 
+            padding: clamp(100px, 15vw, 150px) 5%; 
             text-align: center; 
             background: radial-gradient(circle at center, #1c1c1c 0%, var(--bg-base) 75%);
             border-bottom: 1px solid #222; 
         }
         .hero h1 { font-size: clamp(1.8rem, 5vw, 3.5rem); margin-bottom: 15px; color: #fff; text-shadow: 0 0 20px rgba(255, 230, 0, 0.3); }
         .hero h1 span { color: var(--neon-gold); text-shadow: var(--glow-gold); }
-        .hero p { color: var(--text-sec); font-size: clamp(0.85rem, 2vw, 1rem); max-width: 600px; margin: 0 auto 30px; }
+        .hero p { color: var(--text-sec); font-size: clamp(0.85rem, 2vw, 1rem); max-width: 600px; margin: 0 auto; }
 
         .section-container { padding: clamp(40px, 8vw, 80px) 5%; max-width: 1400px; margin: 0 auto; }
-        .section-title { text-align: center; font-size: clamp(1.5rem, 4vw, 1.8rem); margin-bottom: 30px; color: var(--text-main); }
+        .section-title { text-align: center; font-size: clamp(1.5rem, 4vw, 1.8rem); margin-bottom: 40px; color: var(--text-main); }
         .section-title span { color: var(--neon-green); }
 
-        /* --- Sistema de Filtros (MENU HAMBÚRGUER) --- */
-        .filter-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 40px; position: relative; }
-        
-        .hamburger-btn {
-            background: transparent;
-            border: 1px solid #333;
-            color: var(--text-main);
-            padding: 10px 25px;
-            border-radius: 30px;
-            font-family: inherit;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
-        .hamburger-btn:hover, .hamburger-btn.active {
-            border-color: var(--neon-gold);
-            color: var(--neon-gold);
-            background: rgba(255, 230, 0, 0.05);
-            box-shadow: var(--glow-gold);
-        }
-        .hamburger-icon { font-size: 1.2rem; line-height: 1; }
-
-        /* Dropdown de Filtros */
-        .filters-dropdown {
-            display: none; /* Escondido por padrão */
-            flex-direction: column;
-            position: absolute;
-            top: 110%;
-            background: var(--bg-surface);
-            border: 1px solid #333;
-            border-radius: 10px;
-            overflow: hidden;
-            width: 200px;
-            z-index: 100;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            animation: fadeIn 0.2s ease;
-        }
-        .filters-dropdown.show { display: flex; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .filter-item {
-            background: transparent;
-            border: none;
-            color: var(--text-sec);
-            padding: 15px 20px;
-            text-align: left;
-            font-family: inherit;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            border-bottom: 1px solid #1a1a1a;
-        }
-        .filter-item:last-child { border-bottom: none; }
-        .filter-item:hover, .filter-item.active {
-            color: var(--neon-gold);
-            background: #111;
-            padding-left: 25px; /* Efeito visual de seleção */
-        }
-
         /* --- Grid de Produtos --- */
-        /* Ajuste dinâmico: no PC ficam até 4 por linha, no celular 1 ou 2 dependendo da tela */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
         
         .product-card { background: var(--bg-surface); clip-path: var(--card-shape); position: relative; display: flex; flex-direction: column; transition: transform 0.3s ease, opacity 0.4s ease; cursor: pointer; }
@@ -150,7 +148,6 @@
         
         .btn-buy { margin-top: auto; background: transparent; color: var(--neon-gold); border: 1px solid var(--neon-gold); padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px); transition: all 0.3s; cursor: pointer; width: 100%; }
         .product-card:hover .btn-buy { background: var(--neon-gold); color: #000; box-shadow: var(--glow-gold); }
-
         .card-tag { position: absolute; top: 15px; left: 15px; background: var(--neon-green); color: #000; padding: 4px 10px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px); z-index: 5; }
 
         /* --- Seção Lojas Físicas --- */
@@ -161,83 +158,29 @@
         
         .store-map-placeholder { flex: 1 1 300px; min-height: 250px; background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; position: relative; }
         .store-map-placeholder::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.6); }
-        
-        .map-pin { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--neon-green); color: #000; padding: 10px 20px; font-weight: bold; z-index: 10; border-radius: 30px; cursor: pointer; transition: transform 0.3s; font-size: 0.85rem; text-align: center;}
-        .map-pin:hover { transform: translate(-50%, -55%) scale(1.05); }
 
-        /* --- MODAL PREMIUM --- */
-        .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(5px); z-index: 2000; justify-content: center; align-items: center; padding: 15px; opacity: 0; transition: opacity 0.3s ease;
+        /* --- Botão Flutuante WhatsApp (Extra Mobile) --- */
+        .float-whatsapp {
+            position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 1000; transition: transform 0.3s;
         }
-        .modal-overlay.active { display: flex; opacity: 1; }
-        
-        .modal-content {
-            background: #000; border: 1px solid #333; width: 100%; max-width: 1000px; display: flex; overflow: hidden; position: relative; transform: translateY(20px); transition: transform 0.3s ease; box-shadow: 0 15px 50px rgba(0,0,0,0.8); border-radius: 8px; max-height: 95vh;
-        }
-        .modal-overlay.active .modal-content { transform: translateY(0); }
-
-        .modal-close { position: absolute; top: 10px; right: 15px; background: #111; border: 1px solid #333; border-radius: 50%; width: 35px; height: 35px; color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 10; transition: all 0.3s; display: flex; justify-content: center; align-items: center; }
-        .modal-close:hover { color: #ff3333; border-color: #ff3333; }
-
-        .modal-img-area { flex: 1.2; background: #0a0a0a; display: flex; justify-content: center; align-items: center; position: relative; border-right: 1px solid #222; }
-        .modal-img-area img { width: 100%; height: 100%; max-height: 500px; object-fit: contain; }
-        
-        .modal-info-area { flex: 1; padding: clamp(20px, 4vw, 40px); display: flex; flex-direction: column; gap: 12px; overflow-y: auto;}
-        
-        .modal-tags { display: flex; flex-wrap: wrap; gap: 8px; font-size: 0.65rem; font-weight: 800; }
-        .tag-green { color: var(--neon-green); border: 1px solid var(--neon-green); padding: 4px 8px; border-radius: 2px; }
-        .tag-white { color: #fff; border: 1px solid #fff; padding: 4px 8px; border-radius: 2px; }
-
-        .modal-title-box h2 { font-size: clamp(1.2rem, 3vw, 1.4rem); color: #fff; line-height: 1.2; margin-top: 5px;}
-
-        .price-block { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-top: 5px; }
-        .current-price { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 800; color: var(--neon-gold); text-shadow: var(--glow-gold); }
-        .old-price { font-size: 0.9rem; text-decoration: line-through; color: #666; font-weight: 500;}
-        .discount-badge { background: #3300cc; color: #fff; padding: 3px 8px; border-radius: 3px; font-size: 0.75rem; font-weight: bold; }
-
-        .installments { font-size: 0.85rem; color: #aaa; }
-        .installments strong { color: #fff; }
-
-        .pix-box { background: rgba(0, 250, 154, 0.05); border: 1px solid #00fa9a; color: #00fa9a; padding: 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; width: fit-content; margin-top: 5px; }
-
-        .size-selector { margin-top: 10px; }
-        .size-label { font-size: 0.85rem; color: #ccc; margin-bottom: 10px; display: block; font-weight: 500;}
-        .sizes-grid { display: flex; flex-wrap: wrap; gap: 10px; }
-        .size-btn { background: transparent; border: 1px solid #444; color: #fff; width: 45px; height: 45px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; font-family: inherit; font-weight: 600; font-size: 1rem; border-radius: 4px;}
-        .size-btn:hover, .size-btn.active { border-color: var(--neon-gold); background: var(--neon-gold); color: #000; box-shadow: var(--glow-gold); }
-
-        .btn-modal-action { background: #fff; color: #000; width: 100%; padding: 15px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; border: none; border-radius: 4px; cursor: pointer; margin-top: 15px; transition: 0.3s; }
-        .btn-modal-action:hover { background: var(--wp-color); color: #fff; transform: scale(1.02); }
-
-        .trust-boxes { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-        .trust-box { display: flex; align-items: center; gap: 15px; border: 1px solid #222; padding: 12px; border-radius: 4px; }
-        .trust-icon { font-size: 1.2rem; background: #111; width: 35px; height: 35px; min-width: 35px; display: flex; justify-content: center; align-items: center; border-radius: 50%; color: #fff;}
-        .trust-text h4 { font-size: 0.8rem; color: #fff; margin-bottom: 2px; }
-        .trust-text p { font-size: 0.7rem; color: #777; }
+        .float-whatsapp:hover { transform: scale(1.1); }
 
         /* --- Footer --- */
-        footer { background: #000; padding: 40px 5%; text-align: center; border-top: 2px solid var(--neon-gold); box-shadow: 0 -5px 20px rgba(255,230,0,0.1); }
+        footer { background: #000; padding: 40px 5%; text-align: center; border-top: 2px solid var(--neon-gold); }
         footer p { color: #555; font-size: 0.8rem; margin-top: 10px; }
 
-        /* --- Responsividade Extra (Mobile Focus) --- */
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 768px) {
-            /* Deixa a logo e os ícones em linha no mobile */
-            header { padding: 15px 5%; flex-direction: row; }
-            nav { display: none; /* Esconde links no mobile para limpar a tela */ }
+            .desktop-nav { display: none; /* Esconde menu horizontal no celular */ }
+            .hidden-mobile { display: none; }
             
-            .product-grid { 
-                /* Permite 2 produtos lado a lado em telas mobile um pouco maiores, ou 1 em telas muito estreitas */
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); 
-                gap: 15px;
-            }
-
+            .mobile-menu-btn { display: block; /* Mostra hambúrguer */ }
+            .header-top { justify-content: space-between; padding: 15px 5%;}
+            
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
             .product-info { padding: 15px; }
             .product-title { font-size: 0.8rem; }
             .product-price { font-size: 1.1rem; }
-
-            .modal-content { flex-direction: column; }
-            .modal-img-area { min-height: 250px; max-height: 300px; border-right: none; border-bottom: 1px solid #222; }
-            .modal-img-area img { max-height: 250px; }
         }
     </style>
 </head>
@@ -245,15 +188,34 @@
 
     <div class="top-bar">🔥 Frete Grátis para todo o DF nas compras acima de R$ 299</div>
 
-    <header>
-        <div class="logo sync-font"><span>+</span> MARROMENOS</div>
-        <nav>
-            <ul>
-                <li><a href="#catalogo">Catálogo VIP</a></li>
-                <li><a href="#loja">Nossa Loja</a></li>
-            </ul>
+    <header class="main-header">
+        <div class="header-top">
+            <button class="mobile-menu-btn" id="btnOpenMenu">&#9776;</button>
+            <div class="header-icons hidden-mobile">&#128269;</div> <div class="logo sync-font"><span>+</span> MARROMENOS</div>
+            <div class="header-icons">&#128717;</div> </div>
+        
+        <nav class="desktop-nav">
+            <button class="nav-link active" data-filter="todos">TODOS OS PRODUTOS</button>
+            <button class="nav-link" data-filter="tenis">TÊNIS EXCLUSIVOS <span style="font-size: 0.6rem; margin-left: 3px;">&#8964;</span></button>
+            <button class="nav-link" data-filter="roupas">CAMISETAS E CORTA VENTO <span style="font-size: 0.6rem; margin-left: 3px;">&#8964;</span></button>
+            <button class="nav-link" data-filter="acessorios">ACESSÓRIOS E BONÉS</button>
         </nav>
     </header>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <button class="close-sidebar" id="btnCloseMenu">&times;</button>
+        </div>
+        <div class="sidebar-links">
+            <button class="sidebar-link active" data-filter="todos"><span>TODOS OS PRODUTOS</span> <span>+</span></button>
+            <button class="sidebar-link" data-filter="tenis"><span>TÊNIS EXCLUSIVOS</span> <span>+</span></button>
+            <button class="sidebar-link" data-filter="roupas"><span>CAMISETAS</span> <span>+</span></button>
+            <button class="sidebar-link" data-filter="roupas"><span>CORTA VENTO</span> <span>+</span></button>
+            <button class="sidebar-link" data-filter="acessorios"><span>BONÉS</span> <span>+</span></button>
+            <button class="sidebar-link" data-filter="acessorios"><span>ACESSÓRIOS</span> <span>+</span></button>
+        </div>
+    </div>
 
     <section class="hero">
         <h1 class="sync-font">Vista sua <span>Atitude</span>.</h1>
@@ -262,23 +224,9 @@
 
     <section class="section-container" id="catalogo">
         <h2 class="section-title sync-font">Drop <span>Oficial</span></h2>
-        
-        <div class="filter-wrapper">
-            <button class="hamburger-btn" id="btnFilterToggle">
-                FILTROS <span class="hamburger-icon">&#9776;</span>
-            </button>
-            
-            <div class="filters-dropdown" id="filtersDropdown">
-                <button class="filter-item active" data-filter="todos">Mostrar Todos</button>
-                <button class="filter-item" data-filter="tenis">Tênis Exclusivos</button>
-                <button class="filter-item" data-filter="roupas">Roupas / Vestuário</button>
-                <button class="filter-item" data-filter="acessorios">Acessórios</button>
-            </div>
-        </div>
 
         <div class="product-grid" id="productGrid">
-            
-            <div class="product-card open-modal" data-category="tenis" data-price="R$ 549,90" data-oldprice="R$ 699,90">
+            <div class="product-card" data-category="tenis">
                 <div class="img-container">
                     <div class="card-tag">Exclusivo</div>
                     <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Nike Air">
@@ -290,7 +238,7 @@
                 </div>
             </div>
 
-            <div class="product-card open-modal" data-category="roupas" data-price="R$ 289,90" data-oldprice="R$ 349,90">
+            <div class="product-card" data-category="roupas">
                 <div class="img-container">
                     <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Moletom">
                 </div>
@@ -301,7 +249,7 @@
                 </div>
             </div>
 
-            <div class="product-card open-modal" data-category="roupas" data-price="R$ 89,90" data-oldprice="R$ 119,90">
+            <div class="product-card" data-category="roupas">
                 <div class="img-container">
                     <div class="card-tag" style="background: var(--neon-gold);">Restock</div>
                     <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Camiseta">
@@ -313,7 +261,7 @@
                 </div>
             </div>
 
-            <div class="product-card open-modal" data-category="acessorios" data-price="R$ 119,90" data-oldprice="R$ 149,90">
+            <div class="product-card" data-category="acessorios">
                 <div class="img-container">
                     <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Boné">
                 </div>
@@ -324,7 +272,7 @@
                 </div>
             </div>
 
-            <div class="product-card open-modal" data-category="tenis" data-price="R$ 649,90" data-oldprice="R$ 799,90">
+            <div class="product-card" data-category="tenis">
                 <div class="img-container">
                     <div class="card-tag">Lançamento</div>
                     <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Asics">
@@ -336,7 +284,7 @@
                 </div>
             </div>
 
-            <div class="product-card open-modal" data-category="roupas" data-price="R$ 229,90" data-oldprice="R$ 299,90">
+            <div class="product-card" data-category="roupas">
                 <div class="img-container">
                     <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Corta Vento">
                 </div>
@@ -346,7 +294,6 @@
                     <button class="btn-buy">Ver Detalhes</button>
                 </div>
             </div>
-
         </div>
     </section>
 
@@ -361,75 +308,11 @@
                 <br>
                 <p>Venha conhecer nosso espaço físico, provar as peças e tomar um café com nossa equipe.</p>
             </div>
-            <div class="store-map-placeholder">
-                <div class="map-pin">Ver no Google Maps</div>
-            </div>
+            <div class="store-map-placeholder"></div>
         </div>
     </section>
 
-    <div class="modal-overlay" id="productModal">
-        <div class="modal-content">
-            <button class="modal-close" id="closeModal">&times;</button>
-            
-            <div class="modal-img-area">
-                <img id="modalImage" src="" alt="Produto Selecionado">
-            </div>
-            
-            <div class="modal-info-area">
-                <div class="modal-tags">
-                    <span class="tag-green">🚚 PRONTA ENTREGA</span>
-                    <span class="tag-white">EXCLUSIVIDADE</span>
-                </div>
-
-                <div class="modal-title-box">
-                    <h2 id="modalTitle" class="sync-font">NOME DO PRODUTO AQUI</h2>
-                </div>
-
-                <div class="price-block">
-                    <span class="current-price" id="modalPrice">R$ 00,00</span>
-                    <span class="old-price" id="modalOldPrice">R$ 00,00</span>
-                    <span class="discount-badge">📉 25% OFF</span>
-                </div>
-
-                <div class="installments">
-                    em até 12x de <strong id="modalInstallment">R$ 0,00</strong> sem juros
-                </div>
-
-                <div class="pix-box">
-                    <span>💵 5% OFF no PIX + Envio Prioritário</span>
-                </div>
-
-                <div class="size-selector">
-                    <span class="size-label">Selecione o Tamanho:</span>
-                    <div class="sizes-grid">
-                        <button class="size-btn">P</button>
-                        <button class="size-btn">M</button>
-                        <button class="size-btn active">G</button>
-                        <button class="size-btn">GG</button>
-                    </div>
-                </div>
-
-                <button class="btn-modal-action">Fechar Pedido no WhatsApp</button>
-
-                <div class="trust-boxes">
-                    <div class="trust-box">
-                        <div class="trust-icon">📦</div>
-                        <div class="trust-text">
-                            <h4>Enviamos para Brasília e Região</h4>
-                            <p>Entrega rápida via motoboy ou correios.</p>
-                        </div>
-                    </div>
-                    <div class="trust-box">
-                        <div class="trust-icon">🛡️</div>
-                        <div class="trust-text">
-                            <h4>Garantia de Compra</h4>
-                            <p>Direito de troca ou reembolso garantido.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <a href="#" class="float-whatsapp">✆</a>
 
     <footer>
         <div class="logo sync-font" style="margin-bottom: 10px;">
@@ -441,39 +324,44 @@
     </footer>
 
     <script>
-        // Lógica do Menu Hambúrguer de Filtros
-        const btnFilterToggle = document.getElementById('btnFilterToggle');
-        const filtersDropdown = document.getElementById('filtersDropdown');
-        const filterItems = document.querySelectorAll('.filter-item');
+        // LÓGICA DE ABERTURA E FECHAMENTO DO MENU MOBILE
+        const btnOpenMenu = document.getElementById('btnOpenMenu');
+        const btnCloseMenu = document.getElementById('btnCloseMenu');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function openMenu() {
+            mobileSidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Impede o scroll no fundo
+        }
+
+        function closeMenu() {
+            mobileSidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Retorna o scroll
+        }
+
+        btnOpenMenu.addEventListener('click', openMenu);
+        btnCloseMenu.addEventListener('click', closeMenu);
+        sidebarOverlay.addEventListener('click', closeMenu);
+
+        // LÓGICA DE FILTRAGEM (PC E MOBILE UNIFICADOS)
+        const allFilterBtns = document.querySelectorAll('.nav-link, .sidebar-link');
         const productCards = document.querySelectorAll('.product-card');
 
-        // Abre/Fecha o dropdown
-        btnFilterToggle.addEventListener('click', () => {
-            filtersDropdown.classList.toggle('show');
-            btnFilterToggle.classList.toggle('active');
-        });
-
-        // Clique fora para fechar o dropdown
-        document.addEventListener('click', (e) => {
-            if (!btnFilterToggle.contains(e.target) && !filtersDropdown.contains(e.target)) {
-                filtersDropdown.classList.remove('show');
-                btnFilterToggle.classList.remove('active');
-            }
-        });
-
-        // Filtragem dos produtos
-        filterItems.forEach(item => {
-            item.addEventListener('click', () => {
-                // Atualiza classes ativas
-                filterItems.forEach(i => i.classList.remove('active'));
-                item.classList.add('active');
+        allFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove 'active' de todos os botões (PC e Mobile)
+                allFilterBtns.forEach(b => b.classList.remove('active'));
                 
-                // Fecha o menu após escolher
-                filtersDropdown.classList.remove('show');
-                btnFilterToggle.classList.remove('active');
+                // Adiciona 'active' no botão clicado
+                btn.classList.add('active');
 
-                // Filtra os cards
-                const filterValue = item.getAttribute('data-filter');
+                // Pega a categoria desejada
+                const filterValue = btn.getAttribute('data-filter');
+
+                // Mostra/Esconde os produtos
                 productCards.forEach(card => {
                     if (filterValue === 'todos' || card.getAttribute('data-category') === filterValue) {
                         card.classList.remove('hide');
@@ -481,50 +369,13 @@
                         card.classList.add('hide');
                     }
                 });
-            });
-        });
 
-        // Lógica do Modal
-        const modalOverlay = document.getElementById('productModal');
-        const closeModal = document.getElementById('closeModal');
-        
-        const modalImage = document.getElementById('modalImage');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalPrice = document.getElementById('modalPrice');
-        const modalOldPrice = document.getElementById('modalOldPrice');
-        const modalInstallment = document.getElementById('modalInstallment');
-
-        productCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const imgSrc = card.querySelector('img').src;
-                const titleText = card.querySelector('.product-title').innerText;
-                const priceText = card.getAttribute('data-price');
-                const oldPriceText = card.getAttribute('data-oldprice');
-
-                const priceNumber = parseFloat(priceText.replace('R$ ', '').replace(',', '.'));
-                const installmentValue = (priceNumber / 12).toFixed(2).replace('.', ',');
-
-                modalImage.src = imgSrc;
-                modalTitle.innerText = titleText;
-                modalPrice.innerText = priceText;
-                modalOldPrice.innerText = oldPriceText;
-                modalInstallment.innerText = 'R$ ' + installmentValue;
-
-                modalOverlay.classList.add('active');
-            });
-        });
-
-        closeModal.addEventListener('click', () => modalOverlay.classList.remove('active'));
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) modalOverlay.classList.remove('active');
-        });
-
-        // Lógica dos Botões de Tamanho
-        const sizeBtns = document.querySelectorAll('.size-btn');
-        sizeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                sizeBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
+                // Se o usuário clicou no menu mobile, fecha a aba automaticamente após a escolha
+                if (window.innerWidth <= 768) {
+                    closeMenu();
+                    // Faz scroll suave até a vitrine
+                    document.getElementById('catalogo').scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
     </script>
