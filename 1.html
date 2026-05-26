@@ -117,6 +117,7 @@
         .header-top { width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
         
 /* Removemos o fundo rosa (insta-gradient) e deixamos limpo */
+/* Contêiner principal: centraliza e segura o anel giratório de fundo */
 .brand-logo { 
     position: relative; 
     display: flex; 
@@ -126,7 +127,7 @@
     border-radius: 50%; 
 }
 
-/* Criamos um efeito premium de "anel de luz" dourado girando sutilmente atrás da logo */
+/* O efeito do anel dourado girando no fundo */
 .brand-logo::after { 
     content: ''; 
     position: absolute; 
@@ -138,18 +139,33 @@
     opacity: 0.5; 
 }
 
-/* Deixamos a logo grande e com borda dourada */
-.brand-logo img { 
+/* NOVA MÁSCARA: Segura a borda dourada e "corta" o excesso do zoom da imagem */
+.logo-wrapper {
     width: clamp(85px, 12vw, 110px); 
     height: clamp(85px, 12vw, 110px); 
-    border-radius: 50%; 
-    object-fit: cover; 
+    border-radius: 50%;
     border: 2px solid var(--brand-neon); 
     box-shadow: var(--brand-glow);
+    overflow: hidden; /* Isso é o que permite darmos o zoom sem vazar! */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-base);
+}
+
+/* A imagem com o zoom aplicado */
+.logo-wrapper img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transform: scale(1.35); /* ESSE É O ZOOM! Se ainda sobrar espaço preto, aumente para 1.4 ou 1.5 */
     transition: transform var(--transition-bounce); 
 }
-        .brand-logo:hover img { transform: scale(1.05); }
 
+/* Efeito ao passar o mouse */
+.brand-logo:hover .logo-wrapper img { 
+    transform: scale(1.45); 
+}
         .header-actions { display: flex; gap: 20px; align-items: center; color: var(--text-main); }
         .action-btn { font-size: 1.3rem; transition: color 0.3s, transform 0.3s; display: flex; align-items: center; justify-content: center; }
         .action-btn:hover { color: var(--brand-neon); transform: translateY(-3px); }
@@ -363,9 +379,11 @@
         <div class="header-top">
             <button class="mobile-menu-btn" id="openMenu" aria-label="Abrir Menu">&#9776;</button>
             
-            <a href="#" class="brand-logo" aria-label="Página Inicial Pura Raça">
-                <img src="pura.png" alt="Pura Raça Logo">
-            </a>
+          <a href="#" class="brand-logo" aria-label="Página Inicial Pura Raça">
+    <div class="logo-wrapper">
+        <img src="pura.png" alt="Pura Raça Logo">
+    </div>
+</a>
             
             <div class="header-actions">
                 <button class="action-btn" id="themeToggle" aria-label="Alternar Tema" title="Alternar Modo Claro/Escuro">
