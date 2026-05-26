@@ -9,24 +9,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
     
     <style>
-        /* --- Variáveis de Design --- */
+        /* --- Variáveis de Design (Paleta Atualizada) --- */
         :root {
-            --bg-base: #020202;
+            --bg-base: #020202; /* Preto absoluto inicial */
             --bg-card: #0a0a0a;
             --bg-modal: #0d0d0d;
             --text-main: #ffffff;
             --text-sec: #888888;
-            --brand-neon: #FFE600;
-            --brand-glow: 0 0 20px rgba(255, 230, 0, 0.5);
-            --accent-green: #00E676;
-            --glass-bg: rgba(5, 5, 5, 0.75);
-            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            /* Cores extraídas da sua logo */
+            --brand-neon: #FFD700; /* Dourado */
+            --brand-glow: 0 0 15px rgba(255, 215, 0, 0.4);
+            --accent-green: #00A859; /* Verde da logo */
+            
+            --glass-bg: rgba(5, 5, 5, 0.85);
+            --glass-border: rgba(255, 215, 0, 0.1);
         }
 
         /* --- Reset Geral --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        body { background-color: var(--bg-base); color: var(--text-main); font-family: 'Montserrat', sans-serif; overflow-x: hidden; }
+        
+        /* A cor de fundo principal agora tem transição para o JS */
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden; 
+            transition: background-color 0.5s ease-out; /* Suavidade na troca de fundo */
+        }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -49,14 +60,32 @@
         }
 
         .header-top {
-            width: 100%; padding: 20px 5%;
+            width: 100%; padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
         }
         
-        .logo { font-size: clamp(1.2rem, 3vw, 1.6rem); color: var(--brand-neon); letter-spacing: 3px; text-shadow: var(--brand-glow); }
-        .logo span { color: #fff; text-shadow: none; }
-        .header-icons { font-size: 1.3rem; display: flex; gap: 20px; }
-        .mobile-menu-btn { display: none; font-size: 1.8rem; }
+        /* ESPAÇO DA LOGO REDONDA */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        .brand-logo img {
+            width: clamp(55px, 8vw, 75px);
+            height: clamp(55px, 8vw, 75px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--brand-neon);
+            box-shadow: var(--brand-glow);
+            transition: transform 0.3s ease;
+        }
+        .brand-logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .header-icons { font-size: 1.3rem; display: flex; gap: 20px; color: var(--brand-neon); }
+        .mobile-menu-btn { display: none; font-size: 1.8rem; color: var(--brand-neon); }
 
         /* --- Menu Navegação Desktop --- */
         .desktop-nav { display: flex; gap: 30px; padding-bottom: 15px; position: relative; }
@@ -70,14 +99,14 @@
         /* Dropdown Estilizado */
         .dropdown-menu {
             position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(15px);
-            background: #090909; border: 1px solid #1f1f1f; border-radius: 6px;
+            background: #050505; border: 1px solid #1a1a1a; border-radius: 6px;
             padding: 15px; min-width: 200px; display: none; flex-direction: column; gap: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8); opacity: 0; transition: all 0.3s ease;
             pointer-events: none;
         }
         .nav-item:hover .dropdown-menu { display: flex; opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
         .dropdown-item { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; text-align: left; color: var(--text-sec); transition: all 0.2s; padding: 5px; border-radius: 4px; }
-        .dropdown-item:hover { color: var(--brand-neon); background: rgba(255, 230, 0, 0.05); padding-left: 10px; }
+        .dropdown-item:hover { color: var(--brand-neon); background: rgba(255, 215, 0, 0.05); padding-left: 10px; }
 
         /* --- Menu Lateral Mobile --- */
         .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }
@@ -97,7 +126,7 @@
         .mobile-sub-link { font-size: 0.8rem; color: var(--text-sec); text-transform: uppercase; text-align: left; }
 
         /* --- Hero Intro --- */
-        .hero { padding: 80px 5% 60px; text-align: center; background: radial-gradient(circle at center, #111 0%, var(--bg-base) 100%); }
+        .hero { padding: 80px 5% 60px; text-align: center; }
         .hero h1 { font-size: clamp(2rem, 6vw, 4rem); margin-bottom: 15px; letter-spacing: -1px; }
         .hero h1 span { color: var(--brand-neon); text-shadow: var(--brand-glow); }
         .hero p { color: var(--text-sec); max-width: 600px; margin: 0 auto; font-size: clamp(0.85rem, 2vw, 1rem); line-height: 1.6; }
@@ -109,10 +138,9 @@
         .section-title { text-align: center; font-size: clamp(1.4rem, 4vw, 2rem); margin-bottom: 20px; letter-spacing: 2px; }
         .section-title span { color: var(--brand-neon); }
 
-        /* --- Carrossel de Coleções (Fixo Corte Visual) --- */
+        /* --- Carrossel de Coleções --- */
         .collections-container { 
             display: flex; gap: 20px; overflow-x: auto; 
-            /* O PADDING ABAIXO PREVINE O CORTE DO HOVER */
             padding: 20px 10px 40px; 
             scroll-snap-type: x mandatory; 
             -webkit-overflow-scrolling: touch; 
@@ -136,7 +164,7 @@
         /* --- Grid de Produtos --- */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; min-height: 400px; align-content: flex-start; }
         
-        .product-card { background: var(--bg-card); border: 1px solid #151515; border-radius: 8px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s, border-color 0.4s; display: flex; flex-direction: column; }
+        .product-card { background: var(--bg-card); border: 1px solid #1a1a1a; border-radius: 8px; overflow: hidden; transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s, border-color 0.4s; display: flex; flex-direction: column; }
         
         .product-card.hide { display: none; }
         .product-card.show { display: flex; animation: fadeUpIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
@@ -152,8 +180,8 @@
         .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         .product-card:hover .img-wrapper img { transform: scale(1.1); }
         
-        .tag-off { position: absolute; top: 12px; left: 12px; background: #2922ff; color: #fff; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; z-index: 3; }
-        .tag-esgotado { position: absolute; top: 12px; right: 12px; background: #fff; color: #000; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; text-transform: uppercase; z-index: 3; }
+        .tag-off { position: absolute; top: 12px; left: 12px; background: #fff; color: #000; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; z-index: 3; }
+        .tag-esgotado { position: absolute; top: 12px; right: 12px; background: #333; color: #fff; padding: 4px 8px; font-size: 0.65rem; font-weight: 800; border-radius: 3px; text-transform: uppercase; z-index: 3; }
 
         .product-meta { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; position: relative; z-index: 3; background: var(--bg-card); }
         .product-name { font-size: 0.85rem; font-weight: 700; color: #ddd; margin-bottom: 8px; line-height: 1.4; letter-spacing: 0.5px; transition: color 0.3s; }
@@ -161,19 +189,18 @@
         
         .price-box { margin-bottom: 15px; }
         .old-price { font-size: 0.75rem; color: var(--text-sec); text-decoration: line-through; margin-right: 6px; }
-        .current-price { font-size: 1.1rem; font-weight: 800; color: var(--text-main); }
-        .installments { font-size: 0.7rem; color: var(--text-sec); margin-top: 2px; }
+        .current-price { font-size: 1.1rem; font-weight: 800; color: var(--brand-neon); }
         
-        .btn-details { margin-top: auto; background: #1a1a1a; color: #fff; padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; width: 100%; border: 1px solid #333; }
+        .btn-details { margin-top: auto; background: #111; color: #fff; padding: 12px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border-radius: 4px; transition: all 0.3s; width: 100%; border: 1px solid #222; }
         .product-card:hover .btn-details { background: var(--brand-neon); color: #000; border-color: var(--brand-neon); box-shadow: var(--brand-glow); }
 
         /* --- Localização Exposta --- */
-        .store-locator-glass { display: grid; grid-template-columns: 1fr 1fr; background: rgba(10, 10, 10, 0.6); backdrop-filter: blur(10px); border: 1px solid #222; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .store-locator-glass { display: grid; grid-template-columns: 1fr 1fr; background: rgba(10, 10, 10, 0.4); backdrop-filter: blur(10px); border: 1px solid #222; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
         .store-info { padding: clamp(30px, 5vw, 50px); display: flex; flex-direction: column; justify-content: center; }
         .store-info h3 { color: var(--brand-neon); font-size: clamp(1.2rem, 3vw, 1.5rem); margin-bottom: 20px; }
         .store-info p { color: #ccc; font-size: 0.9rem; line-height: 1.8; margin-bottom: 10px; }
         .store-map { background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; min-height: 300px; position: relative; }
-        .store-map::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0.8) 0%, rgba(0,0,0,0.2) 100%); }
+        .store-map::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,10,0.9) 0%, rgba(0,0,0,0.3) 100%); }
 
         /* --- MODAL DETALHES DO PRODUTO --- */
         .modal-container { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 3000; display: none; align-items: center; justify-content: center; padding: 20px; opacity: 0; transition: opacity 0.4s ease; }
@@ -191,34 +218,34 @@
         .modal-details-side { padding: 40px 30px; display: flex; flex-direction: column; overflow-y: auto; }
         
         .badges-row { display: flex; gap: 8px; margin-bottom: 15px; }
-        .badge-delivery { background: rgba(0, 230, 118, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
-        .badge-exclusive { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid #444; padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
+        .badge-delivery { background: rgba(0, 168, 89, 0.15); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
+        .badge-exclusive { background: rgba(255, 215, 0, 0.1); color: var(--brand-neon); border: 1px solid var(--brand-neon); padding: 4px 8px; font-size: 0.65rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
         
         .modal-product-title { font-size: clamp(1.2rem, 3vw, 1.5rem); font-weight: 800; line-height: 1.2; margin-bottom: 15px; text-transform: uppercase; }
         
         .modal-price-container { margin-bottom: 20px; }
         .modal-main-price { font-size: 2rem; font-weight: 800; color: var(--brand-neon); display: flex; align-items: center; gap: 10px; }
         .modal-main-price .modal-old-price { font-size: 1rem; color: #555; text-decoration: line-through; font-weight: 500; }
-        .modal-badge-off { background: #2922ff; color: #fff; font-size: 0.7rem; padding: 3px 6px; border-radius: 3px; font-weight: 700; }
+        .modal-badge-off { background: #fff; color: #000; font-size: 0.7rem; padding: 3px 6px; border-radius: 3px; font-weight: 700; }
         .modal-installments-text { font-size: 0.8rem; color: var(--text-sec); margin-top: 4px; }
         
-        .promo-pill { background: rgba(0, 230, 118, 0.08); border: 1px dashed var(--accent-green); color: var(--accent-green); padding: 10px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; margin-bottom: 25px; display: flex; align-items: center; gap: 6px; }
+        .promo-pill { background: rgba(0, 168, 89, 0.08); border: 1px dashed var(--accent-green); color: var(--accent-green); padding: 10px; font-size: 0.75rem; font-weight: 700; border-radius: 6px; margin-bottom: 25px; display: flex; align-items: center; gap: 6px; }
         
         .size-section-title { font-size: 0.8rem; font-weight: 700; color: var(--text-sec); text-transform: uppercase; margin-bottom: 10px; }
         .size-selector { display: flex; gap: 10px; margin-bottom: 30px; }
         .size-btn { width: 45px; height: 45px; border: 1px solid #333; border-radius: 6px; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-        .size-btn:hover { border-color: #888; }
+        .size-btn:hover { border-color: var(--brand-neon); color: var(--brand-neon); }
         .size-btn.selected { background: var(--brand-neon); color: #000; border-color: var(--brand-neon); font-weight: 800; box-shadow: var(--brand-glow); }
         
-        .btn-whatsapp-checkout { background: #fff; color: #000; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; padding: 16px; text-align: center; border-radius: 6px; letter-spacing: 0.5px; transition: all 0.3s; width: 100%; margin-bottom: 25px; }
-        .btn-whatsapp-checkout:hover { background: var(--accent-green); color: #000; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4); }
+        .btn-whatsapp-checkout { background: var(--brand-neon); color: #000; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; padding: 16px; text-align: center; border-radius: 6px; letter-spacing: 0.5px; transition: all 0.3s; width: 100%; margin-bottom: 25px; }
+        .btn-whatsapp-checkout:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2); }
         
         .trust-info-box { border-top: 1px solid #1a1a1a; padding-top: 20px; display: flex; flex-direction: column; gap: 15px; }
         .trust-item { display: flex; gap: 12px; align-items: flex-start; font-size: 0.75rem; color: var(--text-sec); line-height: 1.4; }
         .trust-item strong { color: #fff; display: block; margin-bottom: 2px; }
 
         /* --- Footer Estilizado --- */
-        footer { background: #020202; padding: 40px 5%; text-align: center; border-top: 2px solid #111; margin-top: 40px; }
+        footer { background: #000; padding: 40px 5%; text-align: center; border-top: 1px solid #1a1a1a; margin-top: 40px; }
         footer p { color: #555; font-size: 0.75rem; margin-top: 8px; }
 
         /* --- Responsividade --- */
@@ -245,7 +272,11 @@
     <header class="main-header">
         <div class="header-top">
             <button class="mobile-menu-btn" id="openMenu">&#9776;</button>
-            <div class="logo sync-font"><span>+</span> MARROMENOS</div>
+            
+            <a href="#" class="brand-logo">
+                <img src="https://via.placeholder.com/150/000000/FFD700?text=Sua+Logo" alt="Marromenos Logo">
+            </a>
+            
             <div class="header-icons"><span>&#128717;</span></div>
         </div>
         
@@ -302,7 +333,7 @@
 
     <section class="hero">
         <h1 class="sync-font">Vista sua <span>Atitude</span></h1>
-        <p>Apresentação de vitrine conceitual e estruturada. O catálogo sempre exposto, pronto para filtrar as peças que você desejar.</p>
+        <p>Apresentação de vitrine conceito, cores alinhadas com a identidade da marca e dinâmica imersiva.</p>
     </section>
 
     <section class="reveal-section">
@@ -532,7 +563,10 @@
     </div>
 
     <footer>
-        <p class="sync-font"><span style="color: var(--brand-neon)">+</span> MARROMENOS STORE</p>
+        <div style="margin-bottom: 15px;">
+            <img src="https://via.placeholder.com/150/000000/FFD700?text=Sua+Logo" alt="Marromenos Logo" style="width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--brand-neon);">
+        </div>
+        <p class="sync-font">MARROMENOS STORE</p>
         <p>Concept Build &copy; 2026</p>
     </footer>
 
@@ -549,7 +583,32 @@
 
         sections.forEach(sec => revealOnScroll.observe(sec));
 
-        // 2. MENU MOBILE
+        // 2. MUDANÇA DE COR DE FUNDO DINÂMICA E SUTIL COM O SCROLL (As cores da sua logo!)
+        window.addEventListener('scroll', () => {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = docHeight > 0 ? window.scrollY / docHeight : 0;
+            
+            let r, g, b;
+
+            if (scrollPercent < 0.5) {
+                // Transição do Preto Absoluto para um levíssimo Verde Escuro (Cor da logo)
+                const p = scrollPercent * 2; 
+                r = Math.round(2 + (0 - 2) * p); 
+                g = Math.round(2 + (15 - 2) * p); // G ganha um tom sutil
+                b = Math.round(2 + (5 - 2) * p);
+            } else {
+                // Transição do Verde Escuro para um levíssimo tom de Ouro envelhecido (Dourado da logo) no final
+                const p = (scrollPercent - 0.5) * 2; 
+                r = Math.round(0 + (12 - 0) * p); // R ganha um tom sutil
+                g = Math.round(15 + (10 - 15) * p); 
+                b = Math.round(5 + (0 - 5) * p);
+            }
+            
+            // Aplica a cor diretamente no fundo do Body
+            document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+        });
+
+        // 3. MENU MOBILE
         const openMenuBtn = document.getElementById('openMenu');
         const closeMenuBtn = document.getElementById('closeMenu');
         const sidebar = document.getElementById('sidebar');
@@ -579,13 +638,12 @@
             });
         });
 
-        // 3. LÓGICA DE FILTRO POR CLIQUE
+        // 4. LÓGICA DE FILTRO POR CLIQUE NAS COLEÇÕES
         const collectionCircles = document.querySelectorAll('.collection-circle');
         const products = document.querySelectorAll('.product-card');
         const catalogoTitulo = document.getElementById('catalogo-titulo');
 
         collectionCircles.forEach(circle => {
-            // MUDADO PARA CLIQUE AQUI
             circle.addEventListener('click', () => {
                 const filter = circle.getAttribute('data-filter');
                 
@@ -612,7 +670,7 @@
             });
         });
 
-        // 4. SELEÇÃO DE TAMANHOS
+        // 5. SELEÇÃO DE TAMANHOS
         document.querySelectorAll('.size-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
@@ -620,7 +678,7 @@
             });
         });
 
-        // 5. INJEÇÃO DO MODAL
+        // 6. INJEÇÃO DO MODAL DE DETALHES
         const modal = document.getElementById('productModal');
         const closeModalBtn = document.getElementById('closeModal');
 
