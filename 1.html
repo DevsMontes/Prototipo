@@ -120,7 +120,14 @@
         .brand-logo::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: var(--insta-gradient); animation: rotateGlow 4s linear infinite; z-index: -1; opacity: 0.6; }
         @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
 
-        .brand-logo img { width: clamp(55px, 8vw, 75px); height: clamp(55px, 8vw, 75px); border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-base); transition: transform var(--transition-bounce); }
+       .brand-logo img { 
+    width: clamp(85px, 12vw, 110px); /* Tamanho mínimo aumentado de 55px para 85px no mobile */
+    height: clamp(85px, 12vw, 110px); /* E de 75px para 110px no PC */
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid var(--bg-base); 
+    transition: transform var(--transition-bounce); 
+}
         .brand-logo:hover img { transform: scale(1.05); }
 
         .header-actions { display: flex; gap: 20px; align-items: center; color: var(--text-main); }
