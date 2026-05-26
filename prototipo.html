@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pura Raça Imports | Distribuidor de Roupas Masculinas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Syncopate:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Variáveis de Design Avançadas (Tema Pura Raça) --- */
+        :root {
+            --bg-base: #050505; 
+            --bg-card: color-mix(in srgb, var(--bg-base) 95%, white 5%);
+            --bg-modal: #0d0d0d;
+            --text-main: #ffffff;
+            --text-sec: #aaaaaa;
+            
+            --brand-neon: #D4AF37; /* Dourado Premium */
+            --brand-glow: 0 0 20px color-mix(in srgb, var(--brand-neon) 40%, transparent);
+            --accent-green: #25D366; 
+            --accent-glow: 0 0 20px color-mix(in srgb, var(--accent-green) 40%, transparent);
+            
+            --insta-gradient: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            
+            --glass-bg: color-mix(in srgb, var(--bg-base) 70%, transparent);
+            --glass-border: color-mix(in srgb, var(--brand-neon) 20%, transparent);
+            
+            --transition-smooth: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* --- Modo Claro Premium (Platinum/Silver Mode) --- */
+        body.light-mode {
+            --bg-base: #f0f0f5; /* Cinza platina suave, não é mais um branco puro */
+            --bg-card: #ffffff;
+            --bg-modal: #ffffff;
+            --text-main: #1a1a1d;
+            --text-sec: #666666;
+            --brand-neon: #B8860B; /* Dourado mais escuro para contraste */
+            --brand-glow: 0 0 15px color-mix(in srgb, var(--brand-neon) 15%, transparent);
+            --glass-bg: rgba(255, 255, 255, 0.85); /* Vidro branco translúcido */
+            --glass-border: rgba(0, 0, 0, 0.08);
+        }
+        
+        body.light-mode .top-marquee { color: #fff; background: var(--brand-neon); }
+        body.light-mode .product-card { border-color: rgba(0,0,0,0.08); box-shadow: 0 5px 20px rgba(0,0,0,0.04); }
+        body.light-mode .product-name { color: var(--text-main); }
+        body.light-mode .btn-details { color: var(--text-main); border-color: #ccc; }
+        body.light-mode .btn-details:hover { color: #fff; border-color: var(--brand-neon); }
+        body.light-mode .modal-price-container { background: #f9f9f9; border-color: #eee; }
+        body.light-mode .size-btn { border-color: #ccc; color: var(--text-main); }
+        body.light-mode .size-section div { color: var(--text-main) !important; }
+        body.light-mode .cross-sell-item { background: #f9f9f9; border-color: #eee; }
+        body.light-mode .cross-sell-title, body.light-mode .cross-sell-title::before { color: var(--text-main); }
+        body.light-mode .cross-sell-info h4 { color: var(--text-sec); }
+        body.light-mode .btn-close-modal { color: var(--text-main); background: rgba(0,0,0,0.05); }
+        body.light-mode .mobile-sidebar { background: #f0f0f5; border-right: 1px solid #ddd; }
+        body.light-mode .mobile-nav-item { border-bottom: 1px solid #ddd; }
+        body.light-mode footer { background: #e8e8ed; border-top: 1px solid #ddd; }
+        body.light-mode footer p { color: #555; }
+        body.light-mode .collection-circle { background: #fff; border-color: #ddd; }
+        body.light-mode .collection-title { background: rgba(255,255,255,0.9); color: var(--text-main); text-shadow: none; }
+        body.light-mode .dropdown-menu { background: #fff; border: 1px solid #ddd; }
+        body.light-mode .dropdown-item { color: var(--text-main); }
+        body.light-mode .dropdown-item:hover { color: #fff; }
+        body.light-mode .highlight-circle { border-color: #ccc; background: #fff; }
+        body.light-mode .highlight-inner { background: #f9f9f9; border-color: #ccc; }
+
+        /* --- Reset & Base --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        
+        body { 
+            background-color: var(--bg-base); 
+            color: var(--text-main); 
+            font-family: 'Montserrat', sans-serif; 
+            overflow-x: hidden; 
+            transition: background-color var(--transition-smooth), color var(--transition-smooth);
+        }
+        
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-base); }
+        ::-webkit-scrollbar-thumb { background: #222; border-radius: 10px; border: 1px solid var(--brand-neon); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--brand-neon); }
+
+        .sync-font { font-family: 'Syncopate', sans-serif; text-transform: uppercase; }
+        button { cursor: pointer; border: none; background: none; font-family: inherit; color: inherit; }
+        button:focus-visible { outline: 2px dashed var(--brand-neon); outline-offset: 4px; }
+
+        /* --- Marquee --- */
+        .top-marquee {
+            background: var(--brand-neon); color: #000; font-weight: 800; font-size: 0.75rem;
+            text-transform: uppercase; padding: 8px 0; overflow: hidden; white-space: nowrap;
+            position: relative; z-index: 1001; letter-spacing: 1px;
+        }
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+        .marquee-content span { margin-right: 50px; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* --- Cabeçalho Ocultável (Smart Header) --- */
+        .main-header {
+            background: var(--glass-bg); backdrop-filter: blur(16px) saturate(180%); -webkit-backdrop-filter: blur(16px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border); position: sticky; top: 0; z-index: 1000;
+            display: flex; flex-direction: column; align-items: center; 
+            /* Adicionada a transição do transform para o efeito de esconder ao rolar */
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color var(--transition-smooth), border-color var(--transition-smooth);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Classe que será adicionada via JS para ocultar o menu */
+        .main-header.header-hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-top { width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        
+        .brand-logo { position: relative; display: flex; align-items: center; justify-content: center; text-decoration: none; border-radius: 50%; padding: 3px; background: var(--insta-gradient); }
+        .brand-logo::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; background: var(--insta-gradient); animation: rotateGlow 4s linear infinite; z-index: -1; opacity: 0.6; }
+        @keyframes rotateGlow { 100% { transform: rotate(360deg); } }
+
+        .brand-logo img { width: clamp(55px, 8vw, 75px); height: clamp(55px, 8vw, 75px); border-radius: 50%; object-fit: cover; border: 3px solid var(--bg-base); transition: transform var(--transition-bounce); }
+        .brand-logo:hover img { transform: scale(1.05); }
+
+        .header-actions { display: flex; gap: 20px; align-items: center; color: var(--text-main); }
+        .action-btn { font-size: 1.3rem; transition: color 0.3s, transform 0.3s; display: flex; align-items: center; justify-content: center; }
+        .action-btn:hover { color: var(--brand-neon); transform: translateY(-3px); }
+        .mobile-menu-btn { display: none; font-size: 1.8rem; }
+        
+        /* Ícones SVG para Tema */
+        .theme-icon { width: 22px; height: 22px; }
+        body.light-mode .icon-sun { display: none !important; }
+        body.light-mode .icon-moon { display: block !important; }
+
+        /* --- Menu Navegação Desktop --- */
+        .desktop-nav { display: flex; gap: clamp(15px, 3vw, 40px); padding-bottom: 15px; }
+        .nav-item { position: relative; padding-bottom: 5px; }
+        .nav-link { font-weight: 800; font-size: 0.8rem; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; padding: 5px 0; transition: color 0.3s; }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-neon); transition: width var(--transition-smooth); }
+        .nav-item:hover .nav-link, .nav-link:focus-visible { color: var(--brand-neon); }
+        .nav-item:hover .nav-link::after { width: 100%; }
+
+        .dropdown-menu {
+            position: absolute; top: 100%; left: 50%; transform: translateX(-50%) translateY(20px) scale(0.95);
+            background: var(--glass-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); border-radius: 8px;
+            padding: 15px; min-width: 220px; display: flex; flex-direction: column; gap: 8px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.9); opacity: 0; visibility: hidden; transition: var(--transition-bounce);
+        }
+        .nav-item:hover .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0) scale(1); }
+        .dropdown-item { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; text-align: left; color: var(--text-main); transition: all 0.2s; padding: 10px; border-radius: 4px; display: block; width: 100%; }
+        .dropdown-item:hover { color: var(--bg-base); background: var(--brand-neon); transform: translateX(5px); }
+
+        /* --- Mobile Sidebar --- */
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(5px); z-index: 2000; opacity: 0; visibility: hidden; transition: var(--transition-smooth); }
+        .sidebar-overlay.active { opacity: 1; visibility: visible; }
+        .mobile-sidebar { position: fixed; top: 0; left: -100%; width: 85%; max-width: 320px; height: 100vh; background: var(--bg-modal); border-right: 1px solid var(--glass-border); z-index: 2001; transition: left var(--transition-smooth); display: flex; flex-direction: column; padding: 25px; overflow-y: auto; }
+        .mobile-sidebar.active { left: 0; }
+        .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .close-sidebar { font-size: 2rem; color: var(--text-sec); transition: color 0.3s; }
+        .close-sidebar:hover { color: var(--brand-neon); transform: rotate(90deg); }
+        
+        .mobile-nav-item { border-bottom: 1px solid #1a1a1a; padding: 15px 0; }
+        .mobile-main-link { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 0.9rem; text-transform: uppercase; width: 100%; }
+        .mobile-submenu { max-height: 0; overflow: hidden; transition: max-height var(--transition-smooth); display: flex; flex-direction: column; gap: 10px; padding-left: 15px; }
+        .mobile-submenu.active { max-height: 200px; margin-top: 15px; }
+        .mobile-sub-link { font-size: 0.8rem; color: var(--text-sec); text-transform: uppercase; text-align: left; padding: 5px 0; }
+
+        /* --- Hero --- */
+        .hero { padding: calc(50px + 2vw) 5% 30px; text-align: center; position: relative; }
+        .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60vw; height: 60vw; background: radial-gradient(circle, var(--glass-border) 0%, transparent 70%); z-index: -1; pointer-events: none; }
+        .hero h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); margin-bottom: 15px; letter-spacing: -1px; line-height: 1.1; }
+        .hero h1 span { color: var(--brand-neon); text-shadow: var(--brand-glow); display: inline-block; transition: transform 0.3s; }
+        .hero h1 span:hover { transform: scale(1.05) skewX(-5deg); }
+        .hero p { color: var(--text-sec); max-width: 700px; margin: 0 auto 20px; font-size: clamp(0.9rem, 2vw, 1.1rem); line-height: 1.6; font-weight: 500;}
+        
+        /* Destaques Estilo Instagram */
+        .insta-highlights { display: flex; justify-content: center; gap: clamp(15px, 4vw, 40px); margin-top: 40px; flex-wrap: wrap; }
+        .highlight-item { display: flex; flex-direction: column; align-items: center; gap: 8px; cursor: pointer; transition: var(--transition-bounce); }
+        .highlight-item:hover { transform: translateY(-5px); }
+        .highlight-circle { width: 70px; height: 70px; border-radius: 50%; border: 2px solid #333; padding: 4px; display: flex; justify-content: center; align-items: center; background: var(--bg-base); transition: border-color 0.3s; }
+        .highlight-item:hover .highlight-circle { border-color: var(--brand-neon); box-shadow: var(--brand-glow); }
+        .highlight-inner { width: 100%; height: 100%; border-radius: 50%; background: #111; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; color: var(--brand-neon); border: 1px dashed var(--brand-neon); }
+        .highlight-text { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* --- Sections & Reveal --- */
+        .reveal-section { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1); padding: 50px 5%; max-width: 1400px; margin: 0 auto; }
+        .reveal-section.revealed { opacity: 1; transform: translateY(0); }
+        .section-title { text-align: center; font-size: clamp(1.5rem, 4vw, 2.5rem); margin-bottom: 30px; letter-spacing: 2px; }
+        .section-title span { color: var(--brand-neon); }
+
+        /* --- Carrossel de Coleções --- */
+        .collections-container { display: flex; gap: 20px; overflow-x: auto; padding: 20px 10px 40px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; justify-content: flex-start; scrollbar-width: none; }
+        .collections-container::-webkit-scrollbar { display: none; }
+        @media (min-width: 900px) { .collections-container { justify-content: center; } }
+        
+        .collection-circle { flex: 0 0 calc(20% - 20px); max-width: 150px; min-width: 110px; aspect-ratio: 1/1; border-radius: 50%; background: #111; overflow: hidden; position: relative; scroll-snap-align: start; cursor: pointer; border: 2px solid transparent; transition: var(--transition-bounce); }
+        .collection-circle:hover, .collection-circle.active-filter { border-color: var(--brand-neon); transform: translateY(-10px) scale(1.05); box-shadow: var(--brand-glow); z-index: 2; }
+        .collection-circle img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(80%); transition: var(--transition-smooth); }
+        .collection-circle:hover img, .collection-circle.active-filter img { opacity: 1; filter: grayscale(0); transform: scale(1.15); }
+        .collection-title { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 10px; font-weight: 800; font-size: clamp(0.7rem, 2vw, 0.85rem); letter-spacing: 1px; background: rgba(0,0,0,0.6); backdrop-filter: blur(2px); transition: var(--transition-smooth); }
+        .collection-circle:hover .collection-title { background: rgba(0,0,0,0.1); backdrop-filter: blur(0px); text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
+
+        /* --- Grid de Produtos --- */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; align-content: flex-start; perspective: 1000px; }
+        
+        .product-card { background: var(--bg-card); border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transform-style: preserve-3d; transition: border-color 0.4s, box-shadow 0.4s; will-change: transform; }
+        .product-card.hide { display: none; }
+        .product-card.show { display: flex; animation: fadeUpIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards; }
+        @keyframes fadeUpIn { 0% { opacity: 0; transform: translateY(30px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        
+        .product-card:hover { border-color: var(--brand-neon); box-shadow: 0 20px 40px rgba(0,0,0,0.9); z-index: 2; }
+        
+        .img-wrapper { position: relative; aspect-ratio: 1/1; background: #121212; overflow: hidden; transform: translateZ(20px); }
+        .img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+        .product-card:hover .img-wrapper img { transform: scale(1.1) rotate(2deg); }
+        
+        .status-tags { position: absolute; top: 15px; left: 15px; display: flex; flex-direction: column; gap: 8px; z-index: 3; transform: translateZ(30px); }
+        .tag { padding: 5px 10px; font-size: 0.65rem; font-weight: 800; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .tag-off { background: #fff; color: #000; }
+        .tag-esgotado { background: #ff3333; color: #fff; }
+        .tag-atacado { background: var(--brand-neon); color: #000; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); } }
+
+        .product-meta { padding: 25px 20px; display: flex; flex-direction: column; flex-grow: 1; background: var(--bg-card); transform: translateZ(10px); }
+        .product-name { font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; line-height: 1.4; transition: color 0.3s; }
+        .product-card:hover .product-name { color: var(--brand-neon); }
+        
+        .price-box { margin-bottom: 20px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap;}
+        .old-price { font-size: 0.8rem; color: var(--text-sec); text-decoration: line-through; }
+        .current-price { font-size: 1.25rem; font-weight: 800; color: var(--brand-neon); }
+        .atacado-info { width: 100%; font-size: 0.7rem; color: var(--text-sec); margin-top: 5px; }
+        
+        .btn-details { margin-top: auto; background: transparent; padding: 14px; text-align: center; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; border-radius: 6px; border: 1px solid #333; transition: var(--transition-bounce); position: relative; overflow: hidden; }
+        .btn-details::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: left 0.5s; }
+        .product-card:hover .btn-details { background: var(--brand-neon); color: #000 !important; border-color: var(--brand-neon); box-shadow: var(--brand-glow); transform: translateY(-3px); }
+        .product-card:hover .btn-details::before { left: 100%; }
+
+        /* --- Localização --- */
+        .store-locator-glass { display: grid; grid-template-columns: 1.2fr 0.8fr; background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.6); }
+        .store-info { padding: clamp(30px, 5vw, 60px); display: flex; flex-direction: column; justify-content: center; }
+        .store-info h3 { color: var(--brand-neon); font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 20px; }
+        .store-info p { font-size: 1rem; line-height: 1.8; margin-bottom: 15px; }
+        .store-map { background: url('https://images.unsplash.com/photo-1524661135-423995f22d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80') center/cover; min-height: 350px; position: relative; }
+        .store-map::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--glass-bg) 0%, transparent 100%); }
+
+        /* --- MODAL AVANÇADO CORRIGIDO (SCROLL BUG FIX) --- */
+        .modal-container { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 20px; opacity: 0; visibility: hidden; transition: var(--transition-smooth); }
+        .modal-container.active { opacity: 1; visibility: visible; }
+        
+        .modal-content { background: var(--bg-modal); width: 100%; max-width: 1100px; border-radius: 16px; border: 1px solid var(--glass-border); overflow: hidden; position: relative; display: grid; grid-template-columns: 1.2fr 1fr; max-height: 90vh; transform: scale(0.95) translateY(20px); transition: var(--transition-bounce); box-shadow: 0 30px 80px rgba(0,0,0,1); }
+        .modal-container.active .modal-content { transform: scale(1) translateY(0); }
+        
+        .btn-close-modal { position: absolute; top: 20px; right: 20px; font-size: 2rem; background: rgba(255,255,255,0.1); width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10; transition: var(--transition-bounce); backdrop-filter: blur(5px); }
+        .btn-close-modal:hover { background: var(--brand-neon); color: #000 !important; transform: rotate(90deg); }
+        
+        /* Ajuste crucial para rolagem */
+        .modal-gallery { background: var(--bg-base); display: flex; align-items: center; justify-content: center; padding: 40px; border-right: 1px solid var(--glass-border); position: relative; }
+        .modal-gallery img { width: 100%; height: auto; max-height: 70vh; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); }
+        
+        .modal-details-side { padding: 40px; display: flex; flex-direction: column; overflow-y: auto; max-height: 90vh; scrollbar-width: thin; }
+        .modal-details-side::-webkit-scrollbar { width: 6px; }
+        .modal-details-side::-webkit-scrollbar-thumb { background: var(--brand-neon); border-radius: 10px; }
+        
+        .badges-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .badge-delivery { background: color-mix(in srgb, var(--brand-neon) 15%, transparent); color: var(--brand-neon); border: 1px solid var(--brand-neon); padding: 6px 10px; font-size: 0.7rem; font-weight: 800; border-radius: 6px; text-transform: uppercase; }
+        
+        .modal-product-title { font-size: clamp(1.4rem, 3vw, 1.8rem); font-weight: 800; line-height: 1.2; margin-bottom: 20px; text-transform: uppercase; }
+        
+        .modal-price-container { margin-bottom: 25px; background: color-mix(in srgb, var(--bg-base) 90%, black 10%); padding: 15px; border-radius: 8px; border: 1px dashed var(--glass-border); }
+        .modal-main-price { font-size: 2.2rem; font-weight: 800; color: var(--brand-neon); display: flex; align-items: center; gap: 12px; }
+        .modal-main-price .modal-old-price { font-size: 1.1rem; color: var(--text-sec); text-decoration: line-through; }
+        
+        .size-selector { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+        .size-btn { width: 50px; height: 50px; border: 2px solid #333; border-radius: 8px; font-weight: 800; font-size: 0.9rem; transition: var(--transition-bounce); }
+        .size-btn:hover { border-color: var(--text-sec); transform: translateY(-3px); }
+        .size-btn.selected { background: var(--brand-neon); color: #000 !important; border-color: var(--brand-neon); box-shadow: var(--brand-glow); transform: translateY(-3px) scale(1.05); }
+        
+        .btn-magnetic { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-whatsapp-checkout { background: var(--accent-green); color: #000; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; padding: 20px; border-radius: 8px; transition: background 0.3s, box-shadow 0.3s; width: 100%; margin-bottom: 30px; letter-spacing: 1px; }
+        .btn-whatsapp-checkout:hover { background: #fff; box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4); }
+        
+        .cross-sell-box { margin-top: 20px; padding-top: 25px; border-top: 1px solid var(--glass-border); }
+        .cross-sell-title { font-size: 0.85rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        .cross-sell-title::before { content: '🔥'; }
+        .cross-sell-item { display: flex; gap: 15px; background: color-mix(in srgb, var(--bg-base) 90%, black 10%); padding: 10px; border-radius: 8px; border: 1px solid var(--glass-border); align-items: center; cursor: pointer; transition: var(--transition-smooth); }
+        .cross-sell-item:hover { border-color: var(--brand-neon); transform: translateX(5px); }
+        .cross-sell-img { width: 60px; height: 60px; border-radius: 6px; object-fit: cover; }
+        .cross-sell-info h4 { font-size: 0.75rem; margin-bottom: 4px; }
+        .cross-sell-info p { font-size: 0.85rem; color: var(--brand-neon); font-weight: 700; }
+
+        /* --- Footer --- */
+        footer { background: #000; padding: 50px 5%; text-align: center; border-top: 1px solid #111; margin-top: 60px; }
+        footer p { color: #555; font-size: 0.8rem; margin-top: 10px; font-weight: 600; }
+
+        /* Responsividade e Scroll Mobile do Modal */
+        @media (max-width: 900px) {
+            .modal-content { 
+                grid-template-columns: 1fr; 
+                max-height: 90vh; /* Mantém na tela */
+                overflow-y: auto; /* A rolagem no mobile passa a ser do modal inteiro */
+            }
+            .modal-gallery { padding: 30px; border-right: none; border-bottom: 1px solid var(--glass-border); }
+            .modal-gallery img { max-height: 40vh; }
+            .modal-details-side { 
+                overflow-y: visible; /* O scroll passa a ser controlado pelo modal-content */
+                padding: 25px; 
+                max-height: none;
+            } 
+            .store-locator-glass { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .desktop-nav { display: none; }
+            .mobile-menu-btn { display: block; color: var(--brand-neon); }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+            .product-meta { padding: 15px; }
+            .current-price { font-size: 1.1rem; }
+            .btn-details { padding: 10px; font-size: 0.7rem; }
+            .hero h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-marquee" role="alert">
+        <div class="marquee-content">
+            <span>🚀 ENVIOS PARA TODO O BRASIL!</span>
+            <span>👑 SEJA UM REVENDEDOR E LUCRE ATÉ 300%</span>
+            <span>📍 LOJA FÍSICA EM TAGUATINGA NORTE - DF</span>
+            <span>🚀 ENVIOS PARA TODO O BRASIL!</span>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="header-top">
+            <button class="mobile-menu-btn" id="openMenu" aria-label="Abrir Menu">&#9776;</button>
+            
+            <a href="#" class="brand-logo" aria-label="Página Inicial Pura Raça">
+                <img src="https://via.placeholder.com/150/000000/D4AF37?text=PR" alt="Pura Raça Logo">
+            </a>
+            
+            <div class="header-actions">
+                <button class="action-btn" id="themeToggle" aria-label="Alternar Tema" title="Alternar Modo Claro/Escuro">
+                    <svg class="theme-icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="theme-icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="action-btn" aria-label="Carrinho">
+                    &#128717;
+                </button>
+            </div>
+        </div>
+        
+        <nav class="desktop-nav" aria-label="Navegação Principal">
+            <div class="nav-item">
+                <button class="nav-link" aria-haspopup="true" aria-expanded="false">Marcas Premium &#11167;</button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Syna World</a>
+                    <a href="#" class="dropdown-item">Corteiz</a>
+                    <a href="#" class="dropdown-item">Trapstar</a>
+                </div>
+            </div>
+            <div class="nav-item"><button class="nav-link">Kits Atacado</button></div>
+            <div class="nav-item"><button class="nav-link">Camisetas</button></div>
+            <div class="nav-item"><button class="nav-link">Corta Vento</button></div>
+            <div class="nav-item"><button class="nav-link">Bonés & Acessórios</button></div>
+        </nav>
+    </header>
+
+    <div class="sidebar-overlay" id="overlay" aria-hidden="true"></div>
+    <aside class="mobile-sidebar" id="sidebar" aria-hidden="true">
+        <div class="sidebar-header">
+            <span class="sync-font" style="color: var(--brand-neon);">Menu</span>
+            <button class="close-sidebar" id="closeMenu" aria-label="Fechar Menu">&times;</button>
+        </div>
+        <nav class="mobile-nav-list">
+            <div class="mobile-nav-item">
+                <button class="mobile-main-link trigger-submenu" aria-expanded="false"><span>Marcas Premium</span> <span>+</span></button>
+                <div class="mobile-submenu">
+                    <a href="#" class="mobile-sub-link">Syna World</a>
+                    <a href="#" class="mobile-sub-link">Corteiz</a>
+                    <a href="#" class="mobile-sub-link">Trapstar</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item"><button class="mobile-main-link" style="color: var(--brand-neon);"><span>Kits Atacado</span></button></div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Camisetas</span></button></div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Corta Vento</span></button></div>
+            <div class="mobile-nav-item"><button class="mobile-main-link"><span>Bonés</span></button></div>
+        </nav>
+    </aside>
+
+    <main>
+        <section class="hero">
+            <h1 class="sync-font">PURA RAÇA <span>IMPORTS</span></h1>
+            <p>Distribuidor de Roupas Masculinas Premium. Seja um parceiro e <strong>lucre de 200% a 300%</strong> revendendo nossos produtos exclusivos em sua região.</p>
+            
+            <div class="insta-highlights">
+                <div class="highlight-item" onclick="document.querySelector('.store-locator-glass').scrollIntoView({behavior: 'smooth'})">
+                    <div class="highlight-circle"><div class="highlight-inner">📍</div></div>
+                    <span class="highlight-text">Localização</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle"><div class="highlight-inner">🏬</div></div>
+                    <span class="highlight-text">Loja Física</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle"><div class="highlight-inner">🤝</div></div>
+                    <span class="highlight-text">Clientes</span>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-circle"><div class="highlight-inner">📦</div></div>
+                    <span class="highlight-text">Envios</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal-section">
+            <h2 class="section-title sync-font">Navegue por <span>Coleções</span></h2>
+            
+            <div class="collections-container" role="tablist">
+                <div class="collection-circle active-filter" data-filter="todos" role="tab" tabindex="0">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400&q=80" alt="Todos">
+                    <div class="collection-title sync-font" style="color: var(--brand-neon);">Ver Todos</div>
+                </div>
+                <div class="collection-circle" data-filter="atacado" role="tab" tabindex="0" style="border-color: var(--brand-neon);">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&q=80" alt="Atacado">
+                    <div class="collection-title sync-font" style="color: #000; background: var(--brand-neon);">Kits Atacado</div>
+                </div>
+                <div class="collection-circle" data-filter="camisetas" role="tab" tabindex="0">
+                    <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="Camisetas">
+                    <div class="collection-title sync-font">Camisetas</div>
+                </div>
+                <div class="collection-circle" data-filter="corta-vento" role="tab" tabindex="0">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&q=80" alt="Corta Vento">
+                    <div class="collection-title sync-font">Corta Vento</div>
+                </div>
+                <div class="collection-circle" data-filter="bones" role="tab" tabindex="0">
+                    <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80" alt="Bonés">
+                    <div class="collection-title sync-font">Bonés</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="reveal-section">
+            <h2 class="section-title sync-font" id="catalogo-titulo">Catálogo <span>Completo</span></h2>
+            
+            <div class="product-grid" id="productGrid">
+                
+                <article class="product-card" data-category="atacado" data-id="6" data-name="Kit 10 Camisetas Premium Revenda" data-price="499.00" data-old="799.00" data-img="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-atacado">LUCRE ATÉ 300%</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80" alt="Kit Atacado" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">KIT ATACADO: 10 CAMISETAS PREMIUM SORTIDAS</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 799,00</span>
+                            <span class="current-price">R$ 499,00</span>
+                            <div class="atacado-info">Sai a R$ 49,90 cada peça!</div>
+                        </div>
+                        <button class="btn-details">Ver Detalhes do Kit</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="atacado" data-id="7" data-name="Kit 5 Jaquetas Corta Vento" data-price="750.00" data-old="1000.00" data-img="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-atacado">TOP REVENDA</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=600&q=80" alt="Kit Corta Vento" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">KIT ATACADO: 5 JAQUETAS CORTA VENTO MASCULINAS</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 1000,00</span>
+                            <span class="current-price">R$ 750,00</span>
+                            <div class="atacado-info">Sai a R$ 150,00 cada peça!</div>
+                        </div>
+                        <button class="btn-details">Ver Detalhes do Kit</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="atacado" data-id="8" data-name="Kit 10 Bonés Importados" data-price="350.00" data-old="500.00" data-img="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-atacado">GIRO RÁPIDO</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80" alt="Kit Bones" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">KIT ATACADO: 10 BONÉS PREMIUM IMPORTADOS</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 500,00</span>
+                            <span class="current-price">R$ 350,00</span>
+                            <div class="atacado-info">Sai a R$ 35,00 cada peça!</div>
+                        </div>
+                        <button class="btn-details">Ver Detalhes do Kit</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="camisetas" data-id="1" data-name="Camiseta Premium Corteiz" data-price="120.00" data-old="180.00" data-img="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-off">Mais Vendido</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=600&q=80" alt="Camiseta Branca" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">CAMISETA PREMIUM CORTEIZ - BRANCA</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 180,00</span>
+                            <span class="current-price">R$ 120,00</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="camisetas" data-id="9" data-name="Camiseta Syna World Dark" data-price="130.00" data-old="190.00" data-img="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-off">Exclusivo</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80" alt="Camiseta Preta" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">CAMISETA SYNA WORLD - PRETA</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 190,00</span>
+                            <span class="current-price">R$ 130,00</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="camisetas" data-id="10" data-name="Camiseta Trapstar Classic" data-price="110.00" data-old="150.00" data-img="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80" alt="Camiseta Cinza" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">CAMISETA TRAPSTAR CLASSIC - CINZA</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 150,00</span>
+                            <span class="current-price">R$ 110,00</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="corta-vento" data-id="4" data-name="Jaqueta Corta Vento Refletiva" data-price="249.90" data-old="299.90" data-img="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-off">LANÇAMENTO</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80" alt="Corta Vento" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">JAQUETA CORTA VENTO REFLETIVA PREMIUM</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 299,90</span>
+                            <span class="current-price">R$ 249,90</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="corta-vento" data-id="11" data-name="Jaqueta Bobojaco Impermeável" data-price="289.90" data-old="350.00" data-img="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80">
+                    <div class="img-wrapper">
+                        <div class="status-tags">
+                            <span class="tag tag-off">Inverno</span>
+                        </div>
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80" alt="Jaqueta Bobojaco" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">JAQUETA BOBOJACO IMPERMEÁVEL - PRETA</h3>
+                        <div class="price-box">
+                            <span class="old-price">R$ 350,00</span>
+                            <span class="current-price">R$ 289,90</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="bones" data-id="5" data-name="Boné Snapback Premium" data-price="89.90" data-old="0" data-img="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=600&q=80" alt="Boné Preto" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">BONÉ SNAPBACK PREMIUM - PRETO/DOURADO</h3>
+                        <div class="price-box">
+                            <span class="current-price">R$ 89,90</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+                <article class="product-card" data-category="bones" data-id="12" data-name="Bucket Hat Streetwear" data-price="79.90" data-old="0" data-img="https://images.unsplash.com/photo-1614031679095-2571221160a2?w=600&q=80">
+                    <div class="img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1614031679095-2571221160a2?w=600&q=80" alt="Bucket Hat" loading="lazy">
+                    </div>
+                    <div class="product-meta">
+                        <h3 class="product-name">BUCKET HAT STREETWEAR - CAMUFLADO</h3>
+                        <div class="price-box">
+                            <span class="current-price">R$ 79,90</span>
+                        </div>
+                        <button class="btn-details">Ver Detalhes</button>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="reveal-section">
+            <h2 class="section-title sync-font">Onde <span>Estamos</span></h2>
+            <div class="store-locator-glass">
+                <div class="store-info">
+                    <h3 class="sync-font">Loja Física Pura Raça</h3>
+                    <p>📍 QNJ 2 LOTE 1 LOJA 3/4<br>Taguatinga Norte, DF</p>
+                    <p>🕒 <strong>Segunda - Sábado:</strong> 09:00 às 19:00</p>
+                    <p style="margin-top: 15px; color: var(--brand-neon); font-size: 0.85rem; font-weight: 800; text-transform: uppercase;">
+                        Venha nos visitar e comprove a qualidade premium dos nossos produtos!
+                    </p>
+                </div>
+                <div class="store-map"></div>
+            </div>
+        </section>
+    </main>
+
+    <div class="modal-container" id="productModal" role="dialog" aria-modal="true">
+        <div class="modal-content">
+            <button class="btn-close-modal" id="closeModal" aria-label="Fechar Modal">&times;</button>
+            
+            <div class="modal-gallery">
+                <img src="" id="modalImg" alt="Imagem do Produto">
+            </div>
+            
+            <div class="modal-details-side">
+                <div class="badges-row" id="modalBadges">
+                    <span class="badge-delivery">📦 Envio para todo o Brasil</span>
+                </div>
+                
+                <h2 class="modal-product-title" id="modalTitle">Nome do Produto</h2>
+                
+                <div class="modal-price-container">
+                    <div class="modal-main-price">
+                        <span id="modalCurrentPrice">R$ 0,00</span>
+                        <span class="modal-old-price" id="modalOldPrice"></span>
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-sec); margin-top: 8px;" id="modalInstallments"></div>
+                </div>
+                
+                <div class="size-section">
+                    <div style="font-size: 0.8rem; font-weight: 800; text-transform: uppercase; margin-bottom: 12px;">Selecione o Tamanho/Grade:</div>
+                    <div class="size-selector">
+                        <button class="size-btn">P</button>
+                        <button class="size-btn selected">M</button>
+                        <button class="size-btn">G</button>
+                        <button class="size-btn">GG</button>
+                    </div>
+                </div>
+                
+                <button class="btn-whatsapp-checkout btn-magnetic">
+                    <span style="pointer-events: none;">Comprar via WhatsApp</span>
+                </button>
+                
+                <div class="cross-sell-box" id="crossSellBox">
+                    <div class="cross-sell-title">Aproveite para Revender</div>
+                    <div class="cross-sell-item">
+                        <img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=150&q=80" alt="Acessório" class="cross-sell-img">
+                        <div class="cross-sell-info">
+                            <h4>Boné Snapback Premium</h4>
+                            <p>Adicione ao seu pedido</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div style="margin-bottom: 20px;">
+            <img src="https://via.placeholder.com/150/000000/D4AF37?text=PR" alt="Pura Raça Logo" style="width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--brand-neon);" onerror="this.style.display='none'">
+        </div>
+        <p class="sync-font" style="font-size: 1.2rem; color: var(--brand-neon);">PURA RAÇA IMPORTS</p>
+        <p>Distribuidor de Roupas Masculinas - Atacado e Varejo</p>
+        <p>&copy; 2026</p>
+    </footer>
+
+    <script>
+        const App = {
+            init() {
+                this.initScrollEngine();
+                this.initInteractions();
+                this.initFilters();
+                this.initModalLogic();
+                this.initMagneticButtons();
+                this.init3DTilt();
+                this.initThemeToggle();
+            },
+
+            // 1. Motor de Scroll c/ Header Inteligente
+            initScrollEngine() {
+                let ticking = false;
+                let lastScrollY = window.scrollY;
+                const header = document.querySelector('.main-header');
+
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            const currentScrollY = window.scrollY;
+                            
+                            // Lógica do Smart Header (Esconde ao rolar p/ baixo, mostra rolando p/ cima)
+                            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                                header.classList.add('header-hidden');
+                            } else {
+                                header.classList.remove('header-hidden');
+                            }
+                            lastScrollY = currentScrollY;
+
+                            this.updateBackgroundOnScroll();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if(entry.isIntersecting) {
+                            entry.target.classList.add('revealed');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                document.querySelectorAll('.reveal-section').forEach(sec => observer.observe(sec));
+            },
+
+            updateBackgroundOnScroll() {
+                if(document.body.classList.contains('light-mode')) return;
+
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = docHeight > 0 ? window.scrollY / docHeight : 0;
+                
+                let r, g, b;
+                if (scrollPercent < 0.5) {
+                    const p = scrollPercent * 2; 
+                    r = Math.round(5 + (15 - 5) * p); 
+                    g = Math.round(5 + (15 - 5) * p); 
+                    b = Math.round(5 + (15 - 5) * p);
+                } else {
+                    const p = (scrollPercent - 0.5) * 2; 
+                    r = Math.round(15 + (5 - 15) * p); 
+                    g = Math.round(15 + (5 - 15) * p); 
+                    b = Math.round(15 + (5 - 15) * p);
+                }
+                document.body.style.backgroundColor = `rgb(${r}, ${g}, ${b})`;
+            },
+
+            // 2. Toggle Modo Claro/Escuro (Platinum Mode Premium)
+            initThemeToggle() {
+                const btn = document.getElementById('themeToggle');
+                
+                btn.addEventListener('click', () => {
+                    document.body.classList.toggle('light-mode');
+                    if(document.body.classList.contains('light-mode')){
+                        document.body.style.backgroundColor = ''; 
+                    } else {
+                        this.updateBackgroundOnScroll(); 
+                    }
+                });
+            },
+
+            // 3. Interações UI/UX
+            initInteractions() {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('overlay');
+                
+                const toggleMenu = (show) => {
+                    sidebar.classList.toggle('active', show);
+                    overlay.classList.toggle('active', show);
+                    sidebar.setAttribute('aria-hidden', !show);
+                    overlay.setAttribute('aria-hidden', !show);
+                    document.body.style.overflow = show ? 'hidden' : '';
+                };
+
+                document.getElementById('openMenu').addEventListener('click', () => toggleMenu(true));
+                document.getElementById('closeMenu').addEventListener('click', () => toggleMenu(false));
+                overlay.addEventListener('click', () => toggleMenu(false));
+
+                document.querySelectorAll('.trigger-submenu').forEach(trigger => {
+                    trigger.addEventListener('click', () => {
+                        const submenu = trigger.nextElementSibling;
+                        const icon = trigger.querySelector('span:last-child');
+                        const isActive = submenu.classList.toggle('active');
+                        trigger.setAttribute('aria-expanded', isActive);
+                        icon.textContent = isActive ? '−' : '+';
+                    });
+                });
+
+                document.querySelector('.modal-details-side').addEventListener('click', (e) => {
+                    if(e.target.classList.contains('size-btn')) {
+                        document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+                        e.target.classList.add('selected');
+                    }
+                });
+            },
+
+            // 4. Lógica de Filtro
+            initFilters() {
+                const circles = document.querySelectorAll('.collection-circle');
+                const products = document.querySelectorAll('.product-card');
+                const title = document.getElementById('catalogo-titulo');
+
+                circles.forEach(circle => {
+                    circle.addEventListener('click', () => {
+                        const filter = circle.dataset.filter;
+                        
+                        circles.forEach(c => c.classList.remove('active-filter'));
+                        circle.classList.add('active-filter');
+
+                        title.innerHTML = filter === 'todos' 
+                            ? `Catálogo <span>Completo</span>` 
+                            : `Resultados para <span>${circle.querySelector('.collection-title').innerText}</span>`;
+
+                        requestAnimationFrame(() => {
+                            products.forEach(p => {
+                                const isMatch = filter === 'todos' || p.dataset.category === filter;
+                                p.classList.toggle('show', isMatch);
+                                p.classList.toggle('hide', !isMatch);
+                            });
+                        });
+                    });
+                });
+            },
+
+            // 5. Lógica do Modal + Cross-Selling Dinâmico
+            initModalLogic() {
+                const modal = document.getElementById('productModal');
+                
+                const closeProductModal = () => {
+                    modal.classList.remove('active');
+                    modal.setAttribute('aria-hidden', 'true');
+                    document.body.style.overflow = '';
+                };
+
+                document.querySelectorAll('.product-card').forEach(card => {
+                    if(card.querySelector('.btn-details').disabled) return;
+
+                    card.addEventListener('click', () => {
+                        const { name, price, old, img, category } = card.dataset;
+                        
+                        document.getElementById('modalImg').src = img;
+                        document.getElementById('modalTitle').textContent = name;
+                        
+                        const priceNum = parseFloat(price);
+                        document.getElementById('modalCurrentPrice').textContent = `R$ ${priceNum.toFixed(2).replace('.', ',')}`;
+                        
+                        const oldEl = document.getElementById('modalOldPrice');
+                        if (old && old !== "0") {
+                            oldEl.textContent = `R$ ${parseFloat(old).toFixed(2).replace('.', ',')}`;
+                            oldEl.style.display = "inline";
+                        } else {
+                            oldEl.style.display = "none";
+                        }
+
+                        document.getElementById('modalInstallments').textContent = `em até 12x de R$ ${(priceNum / 12).toFixed(2).replace('.', ',')} sem juros`;
+
+                        this.updateCrossSell(category);
+
+                        modal.classList.add('active');
+                        modal.setAttribute('aria-hidden', 'false');
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+
+                document.getElementById('closeModal').addEventListener('click', closeProductModal);
+                modal.addEventListener('click', (e) => { if(e.target === modal) closeProductModal(); });
+            },
+
+            updateCrossSell(category) {
+                const box = document.getElementById('crossSellBox');
+                let targetData = {};
+
+                if(category === 'atacado') {
+                    targetData = { name: "Kit 5 Bonés Premium", price: "R$ 199,90", img: "https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=150&q=80" };
+                } else if(category === 'camisetas') {
+                    targetData = { name: "Jaqueta Corta Vento Refletiva", price: "R$ 249,90", img: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=150&q=80" };
+                } else {
+                    targetData = { name: "Camiseta Premium Branca", price: "R$ 120,00", img: "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=150&q=80" };
+                }
+
+                box.innerHTML = `
+                    <div class="cross-sell-title">Aproveite para Revender</div>
+                    <div class="cross-sell-item">
+                        <img src="${targetData.img}" alt="${targetData.name}" class="cross-sell-img">
+                        <div class="cross-sell-info">
+                            <h4>${targetData.name}</h4>
+                            <p>${targetData.price}</p>
+                        </div>
+                    </div>
+                `;
+            },
+
+            // 6. Efeito Magnético em Botões
+            initMagneticButtons() {
+                const magnets = document.querySelectorAll('.btn-magnetic');
+                magnets.forEach(btn => {
+                    btn.addEventListener('mousemove', (e) => {
+                        const rect = btn.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+                    });
+                    btn.addEventListener('mouseleave', () => {
+                        btn.style.transform = `translate(0px, 0px)`;
+                    });
+                });
+            },
+
+            // 7. Efeito Tilt 3D Nativo nos Cards
+            init3DTilt() {
+                const cards = document.querySelectorAll('.product-card');
+                cards.forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        const centerX = rect.width / 2;
+                        const centerY = rect.height / 2;
+                        
+                        const rotateX = ((y - centerY) / centerY) * -5;
+                        const rotateY = ((x - centerX) / centerX) * 5;
+                        
+                        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    });
+                });
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', () => App.init());
+    </script>
+</body>
+</html>
